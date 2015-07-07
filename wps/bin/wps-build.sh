@@ -6,7 +6,11 @@ wps_build() {
 
 	wps_header "Building image"
 
-	apk add --update \
+	echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+	echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+	
+	apk add --update bash curl git nano sudo \
+		libmemcached \
 		mariadb-client \
 		msmtp \
 		nginx \
@@ -32,10 +36,8 @@ wps_build() {
 		php-xml \
 		php-zlib \
 		php-zip \
-		supervisor \
-		libmemcached \
-		bash curl git nano sudo
-	                 
+		s6@testing
+	
 	rm -rf /var/cache/apk/*
 	rm -rf /var/lib/apt/lists/*
 	
@@ -46,6 +48,10 @@ wps_build() {
 	# COMPOSER
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar /usr/local/bin/composer
+	
+	# MSMTP
+	cat /wps/usr/.msmtprc > /etc/msmtprc
+	echo "sendmail_path = /usr/bin/msmtp -t" > /etc/php/conf.d/sendmail.ini
 	
 	# PREDIS
 	pear channel-discover pear.nrk.io
@@ -65,10 +71,6 @@ wps_build() {
 	ln -s /wps/wps.sh /usr/bin/wps
 	chmod +x /usr/bin/wps
 
-	# MSMTP
-	cat /wps/usr/.msmtprc > /etc/msmtprc
-	echo "sendmail_path = /usr/bin/msmtp -t" > /etc/php/conf.d/sendmail.ini
-	
 	wps_header "Done!"
 }
 

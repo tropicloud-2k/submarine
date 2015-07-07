@@ -2,21 +2,25 @@
 # START
 # ---------------------------------------------------------------------------------
 
+np_start() { np_env && exec /usr/bin/s6-svscan $conf/s6; }
+
 wps_start() { 
 
 	wps_check
 	wps_header "Starting $PROG"
 	wps_links && echo ""
 	
-	if [[  -z $2  ]];
-	then PROG="all"
-	else PROG="$2"
-	fi
-	
-	if [[  -f /tmp/supervisord.pid  ]];
-	then wps_chmod && supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL start $PROG
-	else wps_chmod && exec supervisord -n -c $WPS_CTL
-	fi
+# 	if [[  -z $2  ]];
+# 	then PROG="all"
+# 	else PROG="$2"
+# 	fi
+# 	
+# 	if [[  -f /tmp/supervisord.pid  ]];
+# 	then wps_chmod && supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL start $PROG
+# 	else wps_chmod && exec supervisord -n -c $WPS_CTL
+# 	fi
+
+	wps_chmod && exec /usr/bin/s6-svscan $conf/s6;
 }
 
 # STOP

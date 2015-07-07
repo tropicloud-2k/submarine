@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/s6-svscanctl -t $conf/s6;
