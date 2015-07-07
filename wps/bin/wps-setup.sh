@@ -11,7 +11,7 @@ wps_setup() {
 	wps_env
 	
 	if [[  $WP_SSL == 'true'  ]]; then wps_ssl; fi
-	if [[  $WP_SQL == 'local'  ]]; then wps_mysql; fi
+	if [[  $WP_SQL == 'local'  ]]; then wps_mysql; else rm -rf $init/mysql; fi
 	
 	wps_chmod
 	wps_header "Installing WordPress"
