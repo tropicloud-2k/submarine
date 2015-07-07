@@ -20,7 +20,7 @@ wps_start() {
 # 	else wps_chmod && exec supervisord -n -c $WPS_CTL
 # 	fi
 
-	wps_chmod && exec /usr/bin/s6-svscan $conf/s6;
+	wps_chmod && exec /usr/bin/s6-svscan $init
 }
 
 # STOP

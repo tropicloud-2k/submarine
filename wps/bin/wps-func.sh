@@ -65,6 +65,7 @@ wps_chmod() {
 	
 	sudo find $home -type f -exec chmod 644 {} \;
 	sudo find $home -type d -exec chmod 755 {} \;
+	sudo find $init -type f -exec chmod +x {} \;
 }
 
 # ADMINER
