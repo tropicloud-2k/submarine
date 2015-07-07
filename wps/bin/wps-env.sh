@@ -1,26 +1,10 @@
 
+# ENVIRONMENT
+# ---------------------------------------------------------------------------------
+
 wps_env() { 
 
-# REDIS
-# ---------------------------------------------------------------------------------
-
-	if [[  ! -z $REDIS_PORT  ]];
-	then export WPS_REDIS="`echo $REDIS_PORT | cut -d/ -f3`"
-	     export WP_REDIS_HOST="`echo $WPS_REDIS | cut -d: -f1`"
-	     export WP_REDIS_PORT="`echo $WPS_REDIS | cut -d: -f2`"
-	fi
-	
-# MEMCACHED
-# ---------------------------------------------------------------------------------
-
-	if [[  ! -z $MEMCACHED_PORT  ]];
-	then export WPS_MEMCACHED="`echo $MEMCACHED_PORT | cut -d/ -f3`"
-	     export WP_MEMCACHED_HOST="`echo $WPS_MEMCACHED | cut -d: -f1`"
-	     export WP_MEMCACHED_PORT="`echo $WPS_MEMCACHED | cut -d: -f2`"
-	fi
-	
-# MYSQL 
-# ---------------------------------------------------------------------------------
+    # MYSQL -----------------------------------------------------------------------
 
 	if [[ -z $DB_HOST ]] && [[ -z $DB_USER ]] && [[ -z $DB_NAME ]] && [[ -z $DB_PASSWORD ]]; then
 
@@ -63,8 +47,23 @@ wps_env() {
 		fi
 	fi
 		
-# WORDPRESS
-# ---------------------------------------------------------------------------------
+    # MEMCACHED -------------------------------------------------------------------
+
+	if [[  ! -z $MEMCACHED_PORT  ]];
+	then export WPS_MEMCACHED="`echo $MEMCACHED_PORT | cut -d/ -f3`"
+	     export WP_MEMCACHED_HOST="`echo $WPS_MEMCACHED | cut -d: -f1`"
+	     export WP_MEMCACHED_PORT="`echo $WPS_MEMCACHED | cut -d: -f2`"
+	fi
+	
+	# REDIS -----------------------------------------------------------------------
+
+	if [[  ! -z $REDIS_PORT  ]];
+	then export WPS_REDIS="`echo $REDIS_PORT | cut -d/ -f3`"
+	     export WP_REDIS_HOST="`echo $WPS_REDIS | cut -d: -f1`"
+	     export WP_REDIS_PORT="`echo $WPS_REDIS | cut -d: -f2`"
+	fi
+	    
+	# WORDPRESS -------------------------------------------------------------------
 
 	  if [[  ! -z $WP_USER ]] && [[  ! -z $WP_PASS  ]] && [[  ! -z $WP_MAIL  ]];
 	then export WP_INSTALL="true"
@@ -82,6 +81,9 @@ wps_env() {
 	export VISUAL="nano"
 	export HOME="$home"
 	
+# 	export WPM_ENV_HTTP_SHA1="`echo -ne "$WPS_PASSWORD" | sha1sum | awk '{print $1}'`"
+# 	echo -e "$user:`openssl passwd -crypt $WPS_PASSWORD`\n" > $home/.htpasswd
+
 	export AUTH_KEY="`openssl rand 48 -base64`"
 	export SECURE_AUTH_KEY="`openssl rand 48 -base64`"
 	export LOGGED_IN_KEY="`openssl rand 48 -base64`"
@@ -91,14 +93,10 @@ wps_env() {
 	export LOGGED_IN_SALT="`openssl rand 48 -base64`"
 	export NONCE_SALT="`openssl rand 48 -base64`"
 	
-# 	export WPM_ENV_HTTP_SHA1="`echo -ne "$WPS_PASSWORD" | sha1sum | awk '{print $1}'`"
-# 	echo -e "$user:`openssl passwd -crypt $WPS_PASSWORD`\n" > $home/.htpasswd
-
 	sed -i "s/WPS_PASS/$WPS_PASS/g" $conf/supervisor/supervisord.conf
 
-# DUMP
-# ---------------------------------------------------------------------------------
-	
+	# DUMP ------------------------------------------------------------------------
+
 	echo -e "set \$DB_HOST $DB_HOST;" >> $home/.adminer
 	echo -e "set \$DB_NAME $DB_NAME;" >> $home/.adminer
 	echo -e "set \$DB_USER $DB_USER;" >> $home/.adminer

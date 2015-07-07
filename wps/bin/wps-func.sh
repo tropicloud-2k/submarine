@@ -18,8 +18,8 @@ wps_check_true() {
 
 wps_check_false() {
 	wps_header "[ERROR] WP_DOMAIN is not set!"
-	echo -e "\033[1;31m  Pleae define WP_DOMAIN as an environment variable.\n
-\033[0m  docker run -P -e WP_DOMAIN=\"example.com\" -d tropicloud/wp-submarine \n
+	echo -e "\033[1;31m  Pleae define WP_DOMAIN as an environment variable.
+\033[0m  docker run -P -e WP_DOMAIN=\"example.com\" -d tropicloud/wp-submarine
 \033[0m  Aborting script...\n\n"
 	exit 1;
 }
@@ -30,7 +30,7 @@ wps_check_false() {
 wps_header() {
 	echo -e "\033[0;30m
 -----------------------------------------------------
-\033[1;34m  (wps)\033[0m - $1\033[0;30m
+\033[0;34m  (wps)\033[0;37m - $1\033[0;30m
 -----------------------------------------------------
 \033[0m"
 }

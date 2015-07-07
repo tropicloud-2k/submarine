@@ -5,14 +5,16 @@
 wps_start() { 
 
 	wps_check
-
-	if [[  -z $2  ]]; then PROG="all"; else PROG="$2"; fi
-
 	wps_header "Starting $PROG"
 	wps_links && echo ""
 	
-	if [[  -f /tmp/supervisord.pid  ]]; then
-		supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL start $PROG
+	if [[  -z $2  ]];
+	then PROG="all"
+	else PROG="$2"
+	fi
+	
+	if [[  -f /tmp/supervisord.pid  ]];
+	then wps_chmod && supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL start $PROG
 	else wps_chmod && exec supervisord -n -c $WPS_CTL
 	fi
 }
@@ -22,12 +24,15 @@ wps_start() {
 
 wps_stop() { 
 	
-	if [[  -z $2  ]]; then PROG="all"; else PROG="$2"; fi
-	
 	wps_header "Stopping $PROG"
 
-	if [[  -f /tmp/supervisord.pid  ]]; then
-		supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL stop $PROG		
+	if [[  -z $2  ]];
+	then PROG="all"
+	else PROG="$2"
+	fi
+	
+	if [[  -f /tmp/supervisord.pid  ]];
+	then supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL stop $PROG		
 	fi
 	echo ""
 }
@@ -38,12 +43,15 @@ wps_stop() {
 
 wps_restart() { 
 	
-	if [[  -z $2  ]]; then PROG="all"; else PROG="$2"; fi
-	
 	wps_header "Restarting $PROG"
 
-	if [[  -f /tmp/supervisord.pid  ]]; then
-		wps_chmod && supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL restart $PROG
+	if [[  -z $2  ]];
+	then PROG="all"
+	else PROG="$2"
+	fi
+	
+	if [[  -f /tmp/supervisord.pid  ]]; 
+	then wps_chmod && supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL restart $PROG
 	else wps_chmod && exec supervisord -n -c $WPS_CTL
 	fi
 	echo ""
@@ -85,13 +93,13 @@ wps_status() {
 	
 	wps_header "Status"
 
-	if [[  -f /tmp/supervisord.pid  ]]; then
+	if [[  -z $2  ]];
+	then PROG="all"
+	else PROG="$2"
+	fi
 	
-		if [[  -z $2  ]];
-		then supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL status all
-		else supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL status $2
-		fi
-	
+	if [[  -f /tmp/supervisord.pid  ]];
+	then supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL status $PROG
 	fi
 	echo ""
 }
