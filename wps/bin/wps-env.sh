@@ -81,9 +81,6 @@ wps_env() {
 	export VISUAL="nano"
 	export HOME="$home"
 	
-# 	export WPM_ENV_HTTP_SHA1="`echo -ne "$WPS_PASSWORD" | sha1sum | awk '{print $1}'`"
-# 	echo -e "$user:`openssl passwd -crypt $WPS_PASSWORD`\n" > $home/.htpasswd
-
 	export AUTH_KEY="`openssl rand 48 -base64`"
 	export SECURE_AUTH_KEY="`openssl rand 48 -base64`"
 	export LOGGED_IN_KEY="`openssl rand 48 -base64`"
@@ -93,8 +90,6 @@ wps_env() {
 	export LOGGED_IN_SALT="`openssl rand 48 -base64`"
 	export NONCE_SALT="`openssl rand 48 -base64`"
 	
-	sed -i "s/WPS_PASS/$WPS_PASS/g" $conf/supervisor/supervisord.conf
-
 	# DUMP ------------------------------------------------------------------------
 
 	echo -e "set \$DB_HOST $DB_HOST;" >> $home/.adminer

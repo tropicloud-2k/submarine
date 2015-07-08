@@ -50,7 +50,6 @@ wps_mysql() {
 	rm -rf /var/lib/apt/lists/*
 	
 	sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
-	mv $conf/supervisor/init.d/mariadb.txt $conf/supervisor/init.d/mariadb.ini
 	
 	mysql_install_db --user=mysql > /dev/null 2>&1
 	mysqld_safe > /dev/null 2>&1 &

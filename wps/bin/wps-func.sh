@@ -84,6 +84,9 @@ wps_chmod() {
 
 wps_mount() { 
 
+	ln -sf /dev/stdout /var/log/nginx/access.log
+	ln -sf /dev/stderr /var/log/nginx/error.log
+	
 	cp -R /wps/run $conf/init.d
 	sudo find $conf/init.d -type f -exec chmod +x {} \;
 
