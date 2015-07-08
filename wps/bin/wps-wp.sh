@@ -47,7 +47,7 @@ wps_wp_wait() {
 
 	echo -ne "Installing..."
 	while [[ ! -f $home/.submarine  ]]; do
-		echo -n '.' && sleep 1/2
+		echo -n '.' && sleep 0.5
 	done && echo -ne " done.\n"
 }
 
