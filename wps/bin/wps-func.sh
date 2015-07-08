@@ -77,7 +77,6 @@ wps_chmod() {
 	
 	sudo find $home -type f -exec chmod 644 {} \;
 	sudo find $home -type d -exec chmod 755 {} \;
-	sudo find $init -type f -exec chmod +x {} \;
 }
 
 # MOUNT
@@ -86,5 +85,6 @@ wps_chmod() {
 wps_mount() { 
 
 	cp -R /wps/run $conf/init.d
+	sudo find $conf/init.d -type f -exec chmod +x {} \;
 
 }
