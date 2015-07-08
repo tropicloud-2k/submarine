@@ -52,6 +52,7 @@ wps_status() {
 	wps_header "$2 status"
 	
 	exec s6-svstat -n /wps/run/$2
+	echo ''
 }
 
 # PS
