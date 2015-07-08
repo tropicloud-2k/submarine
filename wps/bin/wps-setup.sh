@@ -20,8 +20,10 @@ wps_setup() {
 	su -l $user -c "cd $www && composer install"
 	ln -s $home/.env $www/.env
 	
- 	wps_wp_install > $conf/submarine/wordpress.log 2>&1 &
- 	wps_wp_wait			
+#  	wps_wp_install > $conf/submarine/wordpress.log 2>&1 &
+#  	wps_wp_wait
+
+	wps_wp_install		
 
 	# fix "The mysql extension is deprecated"
 	sed -i "s/define('WP_DEBUG'.*/define('WP_DEBUG', false);/g" $www/config/environments/development.php
