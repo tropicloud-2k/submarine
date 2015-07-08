@@ -10,8 +10,7 @@ sudo kill -9 -1
 
 if [[  $WPS_RESTART == 'true'  ]]; then
 	echo "Restart!"
-	/usr/bin/wps mount
-	exec sudo s6-svscan /wps/run
+	exec sudo /usr/bin/wps start
 fi
 
 exit 0
