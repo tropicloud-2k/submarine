@@ -35,16 +35,6 @@ wps_restart() {
 	exec s6-svscanctl -an /wps/run
 }
 
-# RELOAD
-# ---------------------------------------------------------------------------------
-
-wps_reload() { 
-	
-	wps_header "Reloading $2"
-
-	exec s6-svc -h /wps/run/$2
-}
-
 # STATUS
 # ---------------------------------------------------------------------------------
 
@@ -53,7 +43,7 @@ wps_status() {
 	wps_header "$2 status"
 	
 	exec s6-svstat -n /wps/run/$2
-	echo ''
+	echo ""
 }
 
 # PS
@@ -63,7 +53,8 @@ wps_ps() {
 	
 	wps_header "Container processes"
 
-	ps auxf && echo ""
+	ps auxf
+	echo ""
 }
 
 
