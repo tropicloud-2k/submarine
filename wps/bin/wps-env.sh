@@ -67,6 +67,7 @@ wps_env() {
 
 	  if [[  ! -z $WP_USER ]] && [[  ! -z $WP_PASS  ]] && [[  ! -z $WP_MAIL  ]];
 	then export WP_INSTALL="true"
+	else export WP_INSTALL="false"
 	  fi
 	  
 	  if [[  $WP_SSL == 'true'  ]];
@@ -77,7 +78,7 @@ wps_env() {
 	export WPS_CTL="$conf/supervisor/supervisord.conf"
 	export WPS_PASS="`openssl rand 12 -hex`"
 	export WP_SITEURL="${WP_HOME}/wp"
-	export WP_TITLE="$WP_DOMAIN"
+	export WP_TITLE="Submarine"
 	export VISUAL="nano"
 	export HOME="$home"
 	

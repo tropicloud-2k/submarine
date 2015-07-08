@@ -45,10 +45,11 @@ wps_wp_core() {
 
 wps_wp_wait() {
 
-	echo -ne "Loading environment..."
+	echo -ne "Installing..."
 	while [[ ! -f $home/.submarine  ]]; do
 		echo -n '.' && sleep 1
 	done && echo -ne " done.\n"
+	echo -e "Log: $conf/submarine/wordpress.log"
 }
 
 # WP PLUGINS

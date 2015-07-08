@@ -1,4 +1,16 @@
 
+# HEADER
+# ---------------------------------------------------------------------------------
+
+wps_header() {
+	echo -e "\033[0;30m
+-----------------------------------------------------
+\033[0;34m  Submarine\033[0;37m - $1\033[0;30m
+-----------------------------------------------------
+\033[0m" if [[  -n $2  ]]; then echo -e "$2\033[0m"; fi
+
+}
+
 # CHECK
 # ---------------------------------------------------------------------------------
 
@@ -19,42 +31,9 @@ wps_check_true() {
 wps_check_false() {
 	wps_header "[ERROR] WP_DOMAIN is not set!"
 	echo -e "\033[1;31m  Pleae define WP_DOMAIN as an environment variable.
-\033[0m  docker run -P -e WP_DOMAIN=\"example.com\" -d tropicloud/wp-submarine
+\033[0m  ex: docker run -P -e WP_DOMAIN=\"example.com\" -d tropicloud/wp-submarine
 \033[0m  Aborting script...\n\n"
 	exit 1;
-}
-
-# HEADER
-# ---------------------------------------------------------------------------------
-
-wps_header() {
-	echo -e "\033[0;30m
------------------------------------------------------
-\033[0;34m  Submarine\033[0;37m - $1\033[0;30m
------------------------------------------------------
-\033[0m"
-}
-
-# LINKS
-# ---------------------------------------------------------------------------------
-
-wps_links() {
-
-	if [[  ! $WPS_MYSQL == '127.0.0.1:3306'  ]];
-	then echo -e "\033[1;32m  •\033[0;37m MySQL\033[0m -> $WPS_MYSQL"
-	else echo -e "\033[1;33m  •\033[0;37m MySQL\033[0m -> $WPS_MYSQL (localhost)"
-	fi	
-	
-	if [[  ! -z $WPS_REDIS  ]];
-	then echo -e "\033[1;32m  •\033[0;37m Redis\033[0m -> $WPS_REDIS"		
-	else echo -e "\033[1;31m  •\033[0;37m Redis\033[0m [not connected]"
-	fi		
-	
-	if [[  ! -z $WPS_MEMCACHED  ]];
-	then echo -e "\033[1;32m  •\033[0;37m Memcached\033[0m -> $WPS_MEMCACHED"
-	else echo -e "\033[1;31m  •\033[0;37m Memcached\033[0m [not connected]"
-	fi
-	echo ""
 }
 
 # ADMINER
@@ -94,4 +73,26 @@ wps_mount() {
 	fi
 	
 	sudo find $conf/init.d -type f -exec chmod +x {} \;
+}
+
+# LINKS
+# ---------------------------------------------------------------------------------
+
+wps_links() {
+
+	if [[  ! $WPS_MYSQL == '127.0.0.1:3306'  ]];
+	then echo -e "\033[1;32m  •\033[0;37m MySQL\033[0m -> $WPS_MYSQL"
+	else echo -e "\033[1;33m  •\033[0;37m MySQL\033[0m -> $WPS_MYSQL (localhost)"
+	fi	
+	
+	if [[  ! -z $WPS_REDIS  ]];
+	then echo -e "\033[1;32m  •\033[0;37m Redis\033[0m -> $WPS_REDIS"		
+	else echo -e "\033[1;31m  •\033[0;37m Redis\033[0m [not connected]"
+	fi		
+	
+	if [[  ! -z $WPS_MEMCACHED  ]];
+	then echo -e "\033[1;32m  •\033[0;37m Memcached\033[0m -> $WPS_MEMCACHED"
+	else echo -e "\033[1;31m  •\033[0;37m Memcached\033[0m [not connected]"
+	fi
+	echo ""
 }
