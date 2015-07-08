@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec /usr/bin/php-fpm -c /home/wordpress/conf/php/php.ini -y /home/wordpress/conf/php/php-fpm.conf
+exec su -l $user -c "/usr/bin/php-fpm -c $conf/php/php.ini -y $conf/php/php-fpm.conf"

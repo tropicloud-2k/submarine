@@ -15,27 +15,8 @@ wps_build() {
 		msmtp \
 		nginx \
 		openssl \
-		php-cli \
-		php-curl \
-		php-fpm \
-		php-gd \
-		php-gettext \
-		php-iconv \
-		php-json \
-		php-mcrypt \
+		php-common \
 		php-memcache \
-		php-mysql \
-		php-opcache \
-		php-openssl \
-		php-phar \
-		php-pear \
-		php-pdo \
-		php-pdo_mysql \
-		php-pdo_pgsql \
-		php-pdo_sqlite \
-		php-xml \
-		php-zlib \
-		php-zip \
 		s6@testing
 	
 	rm -rf /var/cache/apk/*

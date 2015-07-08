@@ -49,7 +49,6 @@ wps_wp_wait() {
 	while [[ ! -f $home/.submarine  ]]; do
 		echo -n '.' && sleep 1
 	done && echo -ne " done.\n"
-	echo -e "Log: $conf/submarine/wordpress.log"
 }
 
 # WP PLUGINS
