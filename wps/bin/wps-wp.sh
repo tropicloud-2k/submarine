@@ -35,10 +35,8 @@ wps_wp_core() {
 
 	cd $web
 	
-	blogdescription	Just another WordPress site
-	
 	wp core install --url="$WP_HOME" --title="$WP_TITLE" --admin_name="$WP_USER" --admin_email="$WP_MAIL" --admin_password="$WP_PASS"
-	wp option update blogdescription 'Just a awesome WordPress site'
+	wp option update blogdescription 'Just an awesome WordPress site'
 	wp rewrite structure '/%postname%/'
 	wps_wp_plugins
 }
