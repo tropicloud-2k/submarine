@@ -65,14 +65,14 @@ wps_mount() {
 	ln -sf /dev/stdout /var/log/nginx/access.log
 	ln -sf /dev/stderr /var/log/nginx/error.log
 	
-	rm -rf /wps/run
-	cp -R $conf/s6 /wps/run
+	rm -rf $run
+	cp -R $conf/s6 $run
 
 	if [[  ! $WP_SQL == 'local'  ]];
-	then rm -rf /wps/run/mysql
+	then rm -rf $run/mysql
 	fi
 	
-	sudo find /wps/run -type f -exec chmod +x {} \;
+	sudo find $run -type f -exec chmod +x {} \;
 }
 
 # LINKS

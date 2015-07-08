@@ -10,7 +10,7 @@ wps_start() {
 	wps_chmod
 	wps_mount
 
-	exec s6-svscan /wps/run
+	exec sudo s6-svscan $run
 }
 
 # STOP
@@ -20,7 +20,7 @@ wps_stop() {
 	
 	wps_header "Stopping"
 
-	exec s6-svscanctl -st /wps/run	
+	exec WPS_RESTART="false" && sudo s6-svscanctl -t $run	
 }
 
 # RESTART
@@ -30,7 +30,7 @@ wps_restart() {
 	
 	wps_header "Restarting..."
 	
-	exec s6-svscanctl -an /wps/run
+	exec WPS_RESTART="true" && sudo s6-svscanctl -t $run
 }
 
 # STATUS
@@ -40,7 +40,7 @@ wps_status() {
 	
 	wps_header "$2 status"
 	
-	exec s6-svstat -n /wps/run/$2
+	exec sudo s6-svstat -n $run/$2
 	echo ""
 }
 
