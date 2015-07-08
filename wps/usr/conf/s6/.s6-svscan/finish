@@ -5,13 +5,13 @@ case $@ in
 	;;
 esac
 
-sudo rm -rf $run
+sudo rm -rf /wps/run
 sudo kill -9 -1
 
 if [[  $WPS_RESTART == 'true'  ]]; then
-	cp -R $conf/s6 $run
 	echo "Restart!"
-	exec sudo s6-svscan $run
+	/usr/bin/wps mount
+	exec sudo s6-svscan /wps/run
 fi
 
 exit 0
