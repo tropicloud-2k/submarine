@@ -25,11 +25,11 @@ wps_restart() {
 	
 	sudo kill $(echo `pgrep 'master'`)
 	sudo kill $(echo `pgrep 'supervise'`)
+
 	echo -ne "\nRestarting..."
-	
 	while ! pgrep 'php-fpm: master' > /dev/null; do
 		echo -n '.' && sleep 0.2;
-	done && echo -ne " done.\n\n"	
+	done && echo -ne " done.\n"	
 
 	while ! pgrep 'nginx: master' > /dev/null; do
 		sleep 0.2;
