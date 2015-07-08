@@ -20,15 +20,22 @@ wps_restart() {
 	
 	wps_header "Restart"
 	
+	echo ""
 	nginx -t -c $conf/nginx/nginx.conf
-	echo -ne "\nRestarting..."
-
 	sudo kill $(echo `pgrep 'master'`)
 	sudo kill $(echo `pgrep 'supervise'`)
-	sleep 1
 	
-	echo -ne " done!\n`pgrep -l 'master'`"
-	echo -e "`pgrep -l 'master'`\n"
+	echo -ne "\nRestarting..."
+	while ! pgrep 'nginx: master' > /dev/null && pgrep 'php-fpm: master' > /dev/null;
+	do echo -n '.' && sleep 0.2;
+	done && echo -ne " done.\n"
+	
+# 	if [[  $WP_SQL == 'local'  ]];
+# 	then while ! pgrep 'mariadb: master' > /dev/null; do sleep 1; done
+# 	fi
+
+	pgrep -l 'master'
+	echo ""
 }
 
 # STOP
