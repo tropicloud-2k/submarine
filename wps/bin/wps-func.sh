@@ -30,7 +30,7 @@ wps_check_false() {
 wps_header() {
 	echo -e "\033[0;30m
 -----------------------------------------------------
-\033[0;34m  (wps)\033[0;37m - $1\033[0;30m
+\033[0;34m  Submarine\033[0;37m - $1\033[0;30m
 -----------------------------------------------------
 \033[0m"
 }
@@ -79,3 +79,18 @@ wps_adminer() {
 	echo -e "  Password: $DB_PASSWORD\n"
 	php -S 0.0.0.0:8888 -t /usr/local/adminer
 }
+
+# MOUNT
+# ---------------------------------------------------------------------------------
+
+wps_mount() { 
+
+	sudo rm -rf /service
+	mkdir -p /service
+	cp -R $init/. /service
+
+	if [[  ! $WP_SQL == 'local'  ]];
+	then rm -rf /service/mysql
+	fi
+}
+

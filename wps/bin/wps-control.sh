@@ -5,10 +5,11 @@
 wps_start() { 
 
 	wps_check
-	wps_header "Starting $PROG"
+	wps_header "Starting"
 	wps_links
 	wps_chmod
-	
+	wps_mount
+
 	exec /usr/bin/s6-svscan $init
 }
 
