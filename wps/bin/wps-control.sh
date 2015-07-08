@@ -18,9 +18,8 @@ wps_start() {
 
 wps_restart() { 
 	
-	wps_header "Restart"		
+	wps_header "The system is going to reboot NOW!"		
 
-	echo -e "The system is going to reboot NOW!\n"
 	sudo kill $(echo `pgrep 'master'`)
 	sudo kill $(echo `pgrep 'supervise'`)
 
@@ -29,10 +28,8 @@ wps_restart() {
 	done && echo -ne " done.\n"
 	
 	while ! pgrep 'nginx: master' > /dev/null; do sleep 0.1; done
-	while ! pgrep 'php-fpm: master' > /dev/null; do sleep 0.1; done
-	
-	pgrep -l 'master'
-	echo ""
+	while ! pgrep 'php-fpm: master' > /dev/null; do sleep 0.1; done	
+	echo -e "\n\033[0;32m`pgrep -l 'master'`\033[0m\n"
 }
 
 # STOP
