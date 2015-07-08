@@ -41,7 +41,6 @@ elif [[  $1 == 'ps'  ]];        then wps_ps $@
 elif [[  $1 == 'login'  ]];     then wps_login $@
 elif [[  $1 == 'root'  ]];      then wps_root $@
 elif [[  $1 == 'mount'  ]];     then wps_mount $@
-elif [[  $1 == 'unmount'  ]];   then wps_unmount $@
 elif [[  $1 == 'adminer'  ]];   then wps_adminer $@
 elif [[  $1 == 'true'  ]];      then /bin/true
 elif [[  ! $0 == 'wps'  ]];     then /bin/sh -c "$@"

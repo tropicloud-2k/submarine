@@ -6,33 +6,42 @@ wps_header() {
 	echo -e "\033[0;30m
 -----------------------------------------------------
 \033[0;34m  Submarine\033[0;37m - $1\033[0;30m
------------------------------------------------------
-\033[0m"
+-----------------------------------------------------"
+	if [[ -z $2  ]];
+	then echo -e "\033[0m"
+	else echo -e "$2\n\033[0m"
+	fi
 }
 
 # CHECK
 # ---------------------------------------------------------------------------------
 
 wps_check() {
-  	if [[  -z $WP_DOMAIN  ]];
-  	then wps_check_false
-  	else wps_check_true
+  	if [[  -d $www  ]];
+  	then /bin/true
+  	else wps_domain && wps_setup
   	fi
 }
 
-wps_check_true() {
-	if [[  -d $www  ]];
-	then /bin/true
-	else wps_setup
+wps_domain() {
+	if [[  -z $WP_DOMAIN  ]];
+	then wps_error 301
+  	else /bin/true
 	fi
 }
 
-wps_check_false() {
-	wps_header "[ERROR] WP_DOMAIN is not set!"
-	echo -e "\033[1;31m  Pleae define WP_DOMAIN as an environment variable.
-\033[0m  ex: docker run -P -e WP_DOMAIN=\"example.com\" -d tropicloud/wp-submarine
-\033[0m  Aborting script...\n\n"
-	exit 1;
+wps_error() {
+
+	if [[  $1 == '301'  ]]; then
+	wps_header "\033[1;31mError: 301" "
+The environment variable WP_DOMAIN do not exists.
+Pleae define WP_DOMAIN in your 'docker run' command.
+
+Ex: docker run -p 80:80 -e WP_DOMAIN=\"example.com\" -d tropicloud/submarine
+
+Aborting...
+"
+	fi
 }
 
 # ADMINER
@@ -42,7 +51,7 @@ wps_adminer() {
 
 	wps_header "Adminer (mysql admin)"
 
-	echo -e "  Password: $DB_PASSWORD\n"
+	echo -e "  Password: \033[0;37m$DB_PASSWORD\033[0m\n"
 	php -S 0.0.0.0:8888 -t /usr/local/adminer
 }
 
