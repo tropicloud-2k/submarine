@@ -16,10 +16,14 @@ wps_build() {
 		nginx \
 		openssl \
 		php-cli \
-		php-common \
+		php-curl \
+		php-fpm \
 		php-json \
 		php-memcache \
+		php-opcache \
+		php-openssl \
 		php-phar \
+		php-pear \
 		s6@testing
 	
 	rm -rf /var/cache/apk/*
