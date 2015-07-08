@@ -5,7 +5,7 @@
 wps_start() { 
 
 	wps_check
-	wps_header "Starting"
+	wps_header "Start"
 	wps_links
 	wps_chmod
 	wps_mount
@@ -18,14 +18,17 @@ wps_start() {
 
 wps_restart() { 
 	
-	wps_header "Restarting"
+	wps_header "Restart"
 	
 	nginx -t -c $conf/nginx/nginx.conf
-	
+	echo -ne "\nRestarting..."
+
 	sudo kill $(echo `pgrep 'master'`)
 	sudo kill $(echo `pgrep 'supervise'`)
+	sleep 1
 	
-	pgrep -l 'master'
+	echo -ne " done!\n`pgrep -l 'master'`"
+	echo -e "`pgrep -l 'master'`\n"
 }
 
 # STOP
@@ -33,7 +36,7 @@ wps_restart() {
 
 wps_stop() { 
 	
-	wps_header "Stopping"
+	wps_header "Stop"
 
 	exec s6-svscanctl -q /wps/run
 }
@@ -54,7 +57,7 @@ wps_status() {
 
 wps_ps() { 
 	
-	wps_header "Container processes"
+	wps_header "Processes"
 
 	ps auxf
 	echo ""
