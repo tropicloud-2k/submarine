@@ -17,7 +17,9 @@ wps_build() {
 		openssl \
 		php-cli \
 		php-common \
+		php-json \
 		php-memcache \
+		php-phar \
 		s6@testing
 	
 	rm -rf /var/cache/apk/*
