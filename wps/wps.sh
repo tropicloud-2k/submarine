@@ -12,7 +12,6 @@ export conf="$home/conf"
 export www="$home/www"
 export env="$home/.env"
 export web="$www/web"
-export run="/wps/run"
 
 if [[  -f $env  ]]; then
 for var in `cat $env`; do 
