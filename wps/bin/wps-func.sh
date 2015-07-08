@@ -81,7 +81,7 @@ wps_mount() {
 
 wps_unmount() { 
 
-	sudo kill -9 -1
+	sudo s6-svscanctl -N /wps/run
 	sudo rm -rf /wps/run
 }
 

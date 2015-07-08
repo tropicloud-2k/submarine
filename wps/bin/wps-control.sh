@@ -30,6 +30,7 @@ wps_restart() {
 	
 	wps_header "Restarting..."
 	wps_unmount
+	wps_mount
 	
 	exec s6-svscanctl -an /wps/run
 }

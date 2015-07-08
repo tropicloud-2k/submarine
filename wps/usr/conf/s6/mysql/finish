@@ -1,3 +1,4 @@
 #!/bin/sh
 
-s6-svc -Dd $conf/init.d/mysql
+s6-svc -Dd /wps/run/mysql
+rm -rf /wps/run/mysql

@@ -1,3 +1,4 @@
 #!/bin/sh
 
-s6-svc -Dd $conf/init.d/nginx
+s6-svc -Dd /wps/run/nginx
+rm -rf /wps/run/nginx
