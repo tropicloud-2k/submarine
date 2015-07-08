@@ -1,0 +1,3 @@
+#!/bin/sh
+
+s6-svc -Dd $conf/init.d/nginx

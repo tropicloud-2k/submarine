@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/s6-svscanctl -t $init

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sudo kill -9 -1
+sudo rm -rf $conf/init.d
+exit 0

@@ -57,6 +57,17 @@ wps_links() {
 	echo ""
 }
 
+# ADMINER
+# ---------------------------------------------------------------------------------
+
+wps_adminer() { 
+
+	wps_header "Adminer (mysql admin)"
+
+	echo -e "  Password: $DB_PASSWORD\n"
+	php -S 0.0.0.0:8888 -t /usr/local/adminer
+}
+
 # CHMOD
 # ---------------------------------------------------------------------------------
 
@@ -69,26 +80,11 @@ wps_chmod() {
 	sudo find $init -type f -exec chmod +x {} \;
 }
 
-# ADMINER
-# ---------------------------------------------------------------------------------
-
-wps_adminer() { 
-
-	wps_header "Adminer (mysql admin)"
-
-	echo -e "  Password: $DB_PASSWORD\n"
-	php -S 0.0.0.0:8888 -t /usr/local/adminer
-}
-
 # MOUNT
 # ---------------------------------------------------------------------------------
 
 wps_mount() { 
 
-	cp -R $init /service
+	cp -R /wps/run $conf/init.d
 
-	if [[  ! $WP_SQL == 'local'  ]];
-	then rm -rf /service/mysql
-	fi
 }
-

@@ -9,7 +9,6 @@
 export user="wordpress"
 export home="/home/$user"
 export conf="$home/conf"
-export init="$conf/s6"
 export www="$home/www"
 export env="$home/.env"
 export web="$www/web"
