@@ -65,7 +65,7 @@ wps_mount() {
 	sudo ln -sf /dev/stdout /var/log/nginx/access.log
 	sudo ln -sf /dev/stderr /var/log/nginx/error.log
 	
-	sudo rm -rf /wps/run $home/.reboot
+	sudo rm -rf /wps/run
 	sudo cp -R $conf/s6 /wps/run
 
 	if [[  ! $WP_SQL == 'local'  ]];

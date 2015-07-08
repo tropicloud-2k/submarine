@@ -1,9 +1,4 @@
 #!/bin/sh
 
 sudo kill -9 -1
-
-if [[  -f /home/wordpress/.reboot  ]];
-then su -l root -c "/usr/bin/wps start"
-fi
-
 exit 0

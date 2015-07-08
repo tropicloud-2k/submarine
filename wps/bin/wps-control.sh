@@ -13,6 +13,17 @@ wps_start() {
 	exec s6-svscan /wps/run
 }
 
+# RESTART
+# ---------------------------------------------------------------------------------
+
+wps_restart() { 
+	
+	wps_header "Restarting..."
+	
+	sudo kill $(echo `pgrep 'master'`)
+	sudo kill $(echo `pgrep 'supervise'`)
+}
+
 # STOP
 # ---------------------------------------------------------------------------------
 
@@ -21,18 +32,6 @@ wps_stop() {
 	wps_header "Stopping"
 
 	exec s6-svscanctl -q /wps/run
-}
-
-# RESTART
-# ---------------------------------------------------------------------------------
-
-wps_restart() { 
-	
-	wps_header "Restarting..."
-	
-	touch $home/.reboot
-
-	exec s6-svscanctl -t /wps/run
 }
 
 # STATUS
