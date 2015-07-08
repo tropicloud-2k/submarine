@@ -85,9 +85,7 @@ wps_adminer() {
 
 wps_mount() { 
 
-	sudo rm -rf /service
-	mkdir -p /service
-	cp -R $init/. /service
+	cp -R $init /service
 
 	if [[  ! $WP_SQL == 'local'  ]];
 	then rm -rf /service/mysql

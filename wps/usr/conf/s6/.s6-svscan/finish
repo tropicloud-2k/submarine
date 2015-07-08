@@ -1,3 +1,4 @@
 #!/bin/sh
 
-/bin/true
+sudo s6-svscanctl -st /service
+sudo rm -rf /service

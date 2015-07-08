@@ -10,7 +10,7 @@ wps_start() {
 	wps_chmod
 	wps_mount
 
-	exec /usr/bin/s6-svscan $init
+	exec /usr/bin/s6-svscan /service
 }
 
 # STOP
