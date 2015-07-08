@@ -38,7 +38,7 @@ wps_wp_core() {
 	blogdescription	Just another WordPress site
 	
 	wp core install --url="$WP_HOME" --title="$WP_TITLE" --admin_name="$WP_USER" --admin_email="$WP_MAIL" --admin_password="$WP_PASS"
-	wp option update blogdescription 'Just another WordPress Submarine'
+	wp option update blogdescription 'Just a awesome WordPress site'
 	wp rewrite structure '/%postname%/'
 	wps_wp_plugins
 }
@@ -50,7 +50,7 @@ wps_wp_wait() {
 
 	echo -ne "Installing..."
 	while [[ ! -f $home/.submarine  ]]; do
-		echo -n '.' && sleep 0.2
+		echo -n '.' && sleep 0.1
 	done && echo -ne " done.\n"
 }
 
