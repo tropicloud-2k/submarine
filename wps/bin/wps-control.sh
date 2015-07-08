@@ -18,10 +18,14 @@ wps_start() {
 
 wps_restart() { 
 	
-	wps_header "Restarting..."
+	wps_header "Restarting"
+	
+	nginx -t -c $conf/nginx/nginx.conf
 	
 	sudo kill $(echo `pgrep 'master'`)
 	sudo kill $(echo `pgrep 'supervise'`)
+	
+	pgrep -l 'master'
 }
 
 # STOP
