@@ -49,4 +49,3 @@ elif [[  ! $0 == 'wps'  ]];     then /bin/bash $@
 
 else wps_help
 fi
-wps_unmount
