@@ -20,7 +20,7 @@ wps_stop() {
 	
 	wps_header "Stopping"
 
-	exec s6-svscanctl -t /wps/run	
+	exec s6-svscanctl -st /wps/run	
 }
 
 # RESTART
@@ -29,8 +29,9 @@ wps_stop() {
 wps_restart() { 
 	
 	wps_header "Restarting $2"
+	wps_unmount
 	
-	exec s6-svc -t /wps/run/$2
+	exec s6-svscanctl -an /service
 }
 
 # RELOAD
