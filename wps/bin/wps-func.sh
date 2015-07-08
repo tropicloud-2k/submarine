@@ -54,6 +54,7 @@ wps_links() {
 	then echo -e "\033[1;32m  •\033[0;37m Memcached\033[0m -> $WPS_MEMCACHED"
 	else echo -e "\033[1;31m  •\033[0;37m Memcached\033[0m [not connected]"
 	fi
+	echo ""
 }
 
 # CHMOD
