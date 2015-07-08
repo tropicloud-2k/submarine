@@ -15,6 +15,7 @@ wps_build() {
 		msmtp \
 		nginx \
 		openssl \
+		php-cli \
 		php-common \
 		php-memcache \
 		s6@testing
