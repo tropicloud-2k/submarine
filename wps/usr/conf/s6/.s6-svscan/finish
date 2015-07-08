@@ -1,16 +1,9 @@
 #!/bin/sh
 
-case $@ in
-	reboot)	echo "Reboot!"
-	;;
-esac
-
-sudo rm -rf /wps/run
 sudo kill -9 -1
 
-if [[  $WPS_RESTART == 'true'  ]]; then
-	echo "Restart!"
-	exec sudo /usr/bin/wps start
+if [[  -f /home/wordpress/.reboot  ]];
+then su -l root -c "/usr/bin/wps start"
 fi
 
 exit 0

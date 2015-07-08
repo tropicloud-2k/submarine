@@ -20,8 +20,7 @@ wps_stop() {
 	
 	wps_header "Stopping"
 
-	export WPS_RESTART="false"
-	exec s6-svscanctl -t /wps/run	
+	exec s6-svscanctl -q /wps/run
 }
 
 # RESTART
@@ -31,7 +30,8 @@ wps_restart() {
 	
 	wps_header "Restarting..."
 	
-	export WPS_RESTART="true"
+	touch $home/.reboot
+
 	exec s6-svscanctl -t /wps/run
 }
 
