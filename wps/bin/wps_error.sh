@@ -14,4 +14,5 @@ Ex: docker run -p 80:80 -e WP_DOMAIN=\"example.com\" -d tropicloud/submarine
 Aborting...
 ";  fi
 
+exit 1;
 }
