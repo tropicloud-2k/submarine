@@ -88,6 +88,10 @@ wps_mount() {
 	ln -sf /dev/stderr /var/log/nginx/error.log
 	
 	cp -R /wps/run $conf/init.d
-	sudo find $conf/init.d -type f -exec chmod +x {} \;
 
+	if [[  ! $WP_SQL == 'local'  ]];
+	then rm -rf $conf/init.d/mysql
+	fi
+	
+	sudo find $conf/init.d -type f -exec chmod +x {} \;
 }

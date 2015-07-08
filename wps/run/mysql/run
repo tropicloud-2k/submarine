@@ -1,5 +1,3 @@
 #!/bin/sh
 
-if [[  -d /var/lib/mysql  ]]; then
-	exec /usr/bin/mysqld --user=mysql --datadir=/var/lib/mysql --log-error=/root/mysql.log
-fi
+exec /usr/bin/mysqld --user=mysql --datadir=/var/lib/mysql --log-error=/root/mysql.log
