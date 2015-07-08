@@ -23,7 +23,7 @@ wps_check() {
 wps_check_true() {
 	if [[  -d $www  ]];
 	then /bin/true
-	else rm -rf /wps/run && wps_setup
+	else wps_setup
 	fi
 }
 
@@ -65,6 +65,7 @@ wps_mount() {
 	ln -sf /dev/stdout /var/log/nginx/access.log
 	ln -sf /dev/stderr /var/log/nginx/error.log
 	
+	rm -rf /wps/run
 	cp -R $conf/s6 /wps/run
 
 	if [[  ! $WP_SQL == 'local'  ]];
