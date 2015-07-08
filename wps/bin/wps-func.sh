@@ -23,7 +23,7 @@ wps_check() {
 wps_check_true() {
 	if [[  -d $www  ]];
 	then /bin/true
-	else wps_setup
+	else rm -rf /wps/run && wps_setup
 	fi
 }
 
@@ -65,13 +65,13 @@ wps_mount() {
 	ln -sf /dev/stdout /var/log/nginx/access.log
 	ln -sf /dev/stderr /var/log/nginx/error.log
 	
-	cp -R /wps/run $conf/init.d
+	cp -R $conf/s6 /wps/run
 
 	if [[  ! $WP_SQL == 'local'  ]];
-	then rm -rf $conf/init.d/mysql
+	then rm -rf /wps/run/mysql
 	fi
 	
-	sudo find $conf/init.d -type f -exec chmod +x {} \;
+	sudo find /wps/run -type f -exec chmod +x {} \;
 }
 
 # LINKS
