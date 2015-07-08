@@ -7,9 +7,9 @@ wps_header() {
 -----------------------------------------------------
 \033[0;34m  Submarine\033[0;37m - $1\033[0;30m
 -----------------------------------------------------"
-	if [[ -z $2  ]];
-	then echo -e "\033[0m"
-	else echo -e "$2\n\033[0m"
+	if [[ -n $2  ]];
+	then echo -e "\033[0m$2\n"
+	else echo -e "\033[0m"
 	fi
 }
 
@@ -25,22 +25,8 @@ wps_check() {
 
 wps_domain() {
 	if [[  -z $WP_DOMAIN  ]];
-	then wps_error 301
+	then wps_error '401'
   	else /bin/true
-	fi
-}
-
-wps_error() {
-
-	if [[  $1 == '301'  ]]; then
-	wps_header "\033[1;31mError: 301" "
-The environment variable WP_DOMAIN do not exists.
-Pleae define WP_DOMAIN in your 'docker run' command.
-
-Ex: docker run -p 80:80 -e WP_DOMAIN=\"example.com\" -d tropicloud/submarine
-
-Aborting...
-"
 	fi
 }
 

@@ -32,7 +32,7 @@ wps_restart() {
 	done && echo -ne " done.\n"	
 
 	while ! pgrep 'nginx: master' > /dev/null; do
-		sleep 0.2;
+		sleep 1;
 	done	
 	
 	pgrep -l 'master'
