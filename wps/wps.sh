@@ -34,9 +34,8 @@ elif [[  $1 == 'start'  ]];     then wps_start $@
 elif [[  $1 == 'stop'  ]];      then wps_stop $@
 elif [[  $1 == 'restart'  ]];   then wps_restart $@
 elif [[  $1 == 'reload'  ]];    then wps_reload $@
-elif [[  $1 == 'shutdown'  ]];  then wps_shutdown $@
 elif [[  $1 == 'status'  ]];    then wps_status $@
-elif [[  $1 == 'log'  ]];       then wps_log $@
+elif [[  $1 == 'ssl'  ]];       then wps_ssl $@
 elif [[  $1 == 'ps'  ]];        then wps_ps $@
 elif [[  $1 == 'login'  ]];     then wps_login $@
 elif [[  $1 == 'root'  ]];      then wps_root $@

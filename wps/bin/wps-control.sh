@@ -18,100 +18,40 @@ wps_start() {
 
 wps_stop() { 
 	
-	wps_header "Stopping $PROG"
+	wps_header "Stopping"
 
-	if [[  -z $2  ]];
-	then PROG="all"
-	else PROG="$2"
-	fi
-	
-	if [[  -f /tmp/supervisord.pid  ]];
-	then supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL stop $PROG		
-	fi
-	echo ""
+	exec s6-svscanctl -t $conf/init.d	
 }
-
 
 # RESTART
 # ---------------------------------------------------------------------------------
 
 wps_restart() { 
 	
-	wps_header "Restarting $PROG"
-
-	if [[  -z $2  ]];
-	then PROG="all"
-	else PROG="$2"
-	fi
+	wps_header "Restarting $2"
 	
-	if [[  -f /tmp/supervisord.pid  ]]; 
-	then wps_chmod && supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL restart $PROG
-	else wps_chmod && exec supervisord -n -c $WPS_CTL
-	fi
-	echo ""
+	exec s6-svc -t $conf/init.d/$2
 }
-
 
 # RELOAD
 # ---------------------------------------------------------------------------------
 
 wps_reload() { 
 	
-	wps_header "Reloading supervisord"
+	wps_header "Reloading $2"
 
-	if [[  -f /tmp/supervisord.pid  ]];
-	then supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL reload
-	fi
-	echo ""
+	exec s6-svc -h $conf/init.d/$2
 }
-
-
-# SHUTDOWN
-# ---------------------------------------------------------------------------------
-
-wps_shutdown() { 
-	
-	wps_header "Shutting down!"
-
-	if [[  -f /tmp/supervisord.pid  ]];
-	then supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL shutdown
-	fi
-	echo ""
-}
-
 
 # STATUS
 # ---------------------------------------------------------------------------------
 
 wps_status() { 
 	
-	wps_header "Status"
-
-	if [[  -z $2  ]];
-	then PROG="all"
-	else PROG="$2"
-	fi
+	wps_header "$2 status"
 	
-	if [[  -f /tmp/supervisord.pid  ]];
-	then supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL status $PROG
-	fi
-	echo ""
+	exec s6-svstat -n $conf/init.d/$2
 }
-
-
-# LOG
-# ---------------------------------------------------------------------------------
-
-wps_log() { 
-	
-	wps_header "Log"
-	
-	if [[  -f /tmp/supervisord.pid  ]];
-	then supervisorctl -u $user -p $WPS_PASS -c $WPS_CTL maintail
-	fi
-	echo ""
-}
-
 
 # PS
 # ---------------------------------------------------------------------------------
@@ -120,8 +60,7 @@ wps_ps() {
 	
 	wps_header "Container processes"
 
-	ps auxf
-	echo ""
+	ps auxf && echo ""
 }
 
 
