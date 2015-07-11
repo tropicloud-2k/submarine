@@ -49,18 +49,18 @@ wps_env() {
 		
     # MEMCACHED -------------------------------------------------------------------
 
-	if [[  ! -z $MEMCACHED_PORT  ]];
-	then export WPS_MEMCACHED="`echo $MEMCACHED_PORT | cut -d/ -f3`"
-	     export WP_MEMCACHED_HOST="`echo $WPS_MEMCACHED | cut -d: -f1`"
-	     export WP_MEMCACHED_PORT="`echo $WPS_MEMCACHED | cut -d: -f2`"
+	if [[  ! -z $MEMCACHED_PORT  ]]; then
+		export WPS_MEMCACHED="`echo $MEMCACHED_PORT | cut -d/ -f3`"
+	    export WP_MEMCACHED_HOST="`echo $WPS_MEMCACHED | cut -d: -f1`"
+	    export WP_MEMCACHED_PORT="`echo $WPS_MEMCACHED | cut -d: -f2`"
 	fi
 	
 	# REDIS -----------------------------------------------------------------------
 
-	if [[  ! -z $REDIS_PORT  ]];
-	then export WPS_REDIS="`echo $REDIS_PORT | cut -d/ -f3`"
-	     export WP_REDIS_HOST="`echo $WPS_REDIS | cut -d: -f1`"
-	     export WP_REDIS_PORT="`echo $WPS_REDIS | cut -d: -f2`"
+	if [[  ! -z $REDIS_PORT  ]]; then
+		export WPS_REDIS="`echo $REDIS_PORT | cut -d/ -f3`"
+	    export WP_REDIS_HOST="`echo $WPS_REDIS | cut -d: -f1`"
+	    export WP_REDIS_PORT="`echo $WPS_REDIS | cut -d: -f2`"
 	fi
 	    
 	# WORDPRESS -------------------------------------------------------------------

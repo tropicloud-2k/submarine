@@ -1,7 +1,8 @@
-# Text files #
+# Text and env. #
 ###################
-*.txt
 _*.sh
+*.txt
+.env
 
 # Compiled source #
 ###################

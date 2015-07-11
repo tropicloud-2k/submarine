@@ -1,0 +1,37 @@
+Redis:
+  image: redis
+  tty: true
+  stdin_open: true
+Memcached:
+  image: memcached
+  tty: true
+  stdin_open: true
+Balancer:
+  image: rancher/load-balancer-service
+  ports:
+  - 443:443/tcp
+  - 80:80
+  links:
+  - Submarine:Submarine
+  tty: true
+  stdin_open: true
+MariaDB:
+  image: mariadb
+  restart: 'always'
+  environment:
+    MYSQL_ROOT_PASSWORD: af55d770156fe3f9
+  tty: true
+  stdin_open: true
+Submarine:
+  image: tropicloud/submarine
+  restart: 'always'
+  env_file: ../.env
+  links:
+  - MariaDB:mysql
+  - Memcached:memcached
+  - Redis:redis
+  volumes:
+  - /home/www.cloudapp.ml:/home/wordpress
+  - /var/ssl:/home/wordpress/conf/ssl
+  tty: true
+  stdin_open: true
