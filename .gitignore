@@ -3,6 +3,7 @@
 _*.sh
 *.txt
 .env
+/rancher
 
 # Compiled source #
 ###################

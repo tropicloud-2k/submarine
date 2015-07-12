@@ -1,45 +1,16 @@
-Data:
+storage:
   image: tropicloud/submarine
-  command: true  
+  command: true
   volumes:
   - /home/wordpress
-  tty: true
-  stdin_open: true
-MariaDB:
-  image: mariadb
-  restart: 'always'
-  environment:
-    MYSQL_ROOT_PASSWORD: af55d770156fe3f9
-  tty: true
-  stdin_open: true
-Memcached:
-  image: memcached
-  tty: true
-  stdin_open: true
-Nginx:
-  image: jwilder/nginx-proxy
-  ports:
-  - 80:80/tcp
-  - 443:443/tcp
-  volumes:
-  - /var/ssl:/etc/nginx/certs
-  - /var/run/docker.sock:/tmp/docker.sock:ro
-  tty: true
-  stdin_open: true
-Redis:
-  image: redis
-  tty: true
-  stdin_open: true
-Submarine:
+  - /var/wps/ssl:/home/wordpress/conf/ssl
+submarine:
   image: tropicloud/submarine
-  env_file: .env
-  links:
-  - Memcached:memcached
-  - Redis:redis
-  - MariaDB:mysql
   volumes_from:
-  - Data
-  volumes:
-  - /var/ssl:/home/wordpress/conf/ssl
-  tty: true
+  - storage
+  external_links:
+  - submarine_mariadb_1:mysql
+  - submarine_memcached_1:memcached
+  - submarine_redis_1:redis
+  env_file: .env
   stdin_open: true

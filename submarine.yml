@@ -1,0 +1,17 @@
+mariadb:
+  image: mariadb
+  restart: 'always'
+  environment:
+    MYSQL_ROOT_PASSWORD: af55d770156fe3f9
+memcached:
+  image: memcached
+nginx:
+  image: jwilder/nginx-proxy
+  ports:
+  - 80:80/tcp
+  - 443:443/tcp
+  volumes:
+  - /var/wps/ssl:/etc/nginx/certs
+  - /var/run/docker.sock:/tmp/docker.sock:ro
+redis:
+  image: redis
