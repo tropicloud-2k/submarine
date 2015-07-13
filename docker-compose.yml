@@ -1,4 +1,4 @@
-storage:
+data:
   image: tropicloud/submarine
   command: true
   volumes:
@@ -7,7 +7,7 @@ storage:
 submarine:
   image: tropicloud/submarine
   volumes_from:
-  - storage
+  - data
   external_links:
   - submarine_mariadb_1:mysql
   - submarine_memcached_1:memcached
