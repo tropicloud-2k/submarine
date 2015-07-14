@@ -14,16 +14,21 @@ wps_header() {
 # ---------------------------------------------------------------------------------
 
 wps_check() {
+
   	if [[  -d $www  ]];
   	then /bin/true
-  	else wps_domain && wps_setup
+  	else wps_setup
   	fi
 }
 
+# DOMAIN
+# ---------------------------------------------------------------------------------
+
 wps_domain() {
-	if [[  -z $WP_DOMAIN  ]];
-	then wps_error '401'
-  	else /bin/true
+
+	if [[ -z $WP_DOMAIN  ]];
+	then wps_error '909'
+	else cp -R /wps/usr/. $home && find $conf -type f -exec sed -i "s|example.com|$WP_DOMAIN|g" {} \;
 	fi
 }
 

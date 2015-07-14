@@ -18,7 +18,8 @@ wps_start() {
 
 wps_restart() { 
 	
-	wps_header "The system is going down for reboot NOW!"	
+	wps_header "The system is going down for reboot NOW!"
+	wps_chmod
 
 	sudo kill $(echo `pgrep 'master'`)
 	sudo kill $(echo `pgrep 'supervise'`)

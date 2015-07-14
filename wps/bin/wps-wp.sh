@@ -28,7 +28,6 @@ wps_wp_install() {
 		else wps_wp_core
 		fi
 	fi
-	echo -e "Welcome!" > $home/.submarine
 }
 
 wps_wp_core() {
@@ -39,17 +38,6 @@ wps_wp_core() {
 	wp option update blogdescription 'Just an awesome WordPress site'
 	wp rewrite structure '/%postname%/'
 	wps_wp_plugins
-}
-
-# WP WAIT
-# ---------------------------------------------------------------------------------
-
-wps_wp_wait() {
-
-	echo -ne "Installing..."
-	while [[ ! -f $home/.submarine  ]]; do
-		echo -n '.' && sleep 1;
-	done && echo -ne " done.\n"
 }
 
 # WP PLUGINS

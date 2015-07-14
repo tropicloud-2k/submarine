@@ -43,16 +43,21 @@ wps_mysql_local() {
 
 wps_mysql() {
 
-	wps_header "Installing MariaDB"
+	if [[  $WP_SQL == 'local'  ]]; then
 	
-	apk add mariadb --update
-	rm -rf /var/cache/apk/*
-	rm -rf /var/lib/apt/lists/*
-	
-	sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
-	
-	mysql_install_db --user=mysql > /dev/null 2>&1
-	mysqld_safe > /dev/null 2>&1 &
-	wps_mysql_local
-	mysqladmin -u root shutdown
+		wps_header "Installing MariaDB"
+		
+		apk add mariadb --update
+		rm -rf /var/cache/apk/*
+		rm -rf /var/lib/apt/lists/*
+		
+		sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
+		
+		mysql_install_db --user=mysql > /dev/null 2>&1
+		mysqld_safe > /dev/null 2>&1 &
+		
+		wps_mysql_local
+		
+		mysqladmin -u root shutdown
+	fi
 }
