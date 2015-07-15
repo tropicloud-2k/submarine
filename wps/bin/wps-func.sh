@@ -61,6 +61,7 @@ wps_mount() {
 
 	sudo ln -sf /dev/stdout /var/log/nginx/access.log
 	sudo ln -sf /dev/stderr /var/log/nginx/error.log
+	sudo mkdir -p /tmp/nginx/client-body
 	
 	sudo rm -rf /wps/run
 	sudo cp -R $conf/s6 /wps/run

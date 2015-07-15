@@ -17,6 +17,8 @@ wps_build() {
 		openssl \
 		php-cli \
 		php-curl \
+		php-ctype \
+		php-dom \
 		php-fpm \
 		php-gd \
 		php-gettext \
@@ -33,6 +35,7 @@ wps_build() {
 		php-pdo_mysql \
 		php-pdo_pgsql \
 		php-pdo_sqlite \
+		php-soap \
 		php-xml \
 		php-zlib \
 		php-zip \
