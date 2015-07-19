@@ -49,6 +49,6 @@ wps_load() {
 		if [[  $ssl == 'true'  ]];
 		then cat $etc/proxy443.conf | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
 		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
-
+		fi
 	done
 }
