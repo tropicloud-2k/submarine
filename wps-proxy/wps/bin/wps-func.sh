@@ -15,15 +15,6 @@ wps_header() {
 
 wps_mount() { 
 
-	echo "" > /tmp/events.json
-	echo "" > /tmp/domains.json
-	echo "" > /tmp/domains.txt
-	
-	rm -rf /etc/nginx/conf.d/*
-	
-	cat $etc/nginx.conf > /etc/nginx/nginx.conf
-	cat $etc/default.conf > /etc/nginx/conf.d/default.conf
-
 	ln -sf /dev/stdout /var/log/nginx/access.log
 	ln -sf /dev/stderr /var/log/nginx/error.log
 	
@@ -77,7 +68,6 @@ wps_start() {
 wps_reload() { 
 
 	wps_header "Reload"
-	wps_mount
 	wps_load
 	
 	nginx -s reload
