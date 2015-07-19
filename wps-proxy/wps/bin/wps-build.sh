@@ -20,10 +20,8 @@ wps_build() {
 	mkdir -p /tmp/nginx/client-body
 	mkdir -p /etc/nginx/conf.d
 	
-	ln -sf /dev/stdout /var/log/nginx/access.log
-	ln -sf /dev/stderr /var/log/nginx/error.log
-	
-	ln -s /wps/wps.sh /usr/bin/wps
+	ln -sf /dev/stderr /var/log/nginx/error.log	
+	ln -sf /wps/wps.sh /usr/bin/wps
 	chmod +x /usr/bin/wps
 
 	wps_header "Done!"
