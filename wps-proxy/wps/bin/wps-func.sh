@@ -16,7 +16,7 @@ wps_header() {
 wps_mount() { 
 
 	echo "" > /tmp/domains.json
-	echo "" > /tpm/domains.txt
+	echo "" > /tmp/domains.txt
 	
 	rm -rf /etc/nginx/conf.d/*
 	
