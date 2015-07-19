@@ -53,8 +53,8 @@ EOF
 		echo -e "}\n" >> /etc/nginx/conf.d/default.conf
 				
 		if [[  $ssl == 'true'  ]];
-		then cat $etc/proxy443.conf | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
-		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
+		then cat $etc/proxy443.conf | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
+		else cat $etc/proxy80.conf  | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
 		fi
 		
 	done
