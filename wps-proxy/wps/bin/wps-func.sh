@@ -28,7 +28,15 @@ wps_listen() {
 
 wps_events() {
 
-	inotifywait -m -e modify /tmp/events.json | wps_reload 2>&1 
+	events="/tmp/events.json"
+	
+	while inotifywait -e modify $events; do
+	    if tail -n1 $events | grep ':"exec_start'; then wps_load 2>&1
+	  elif tail -n1 $events | grep ':"restart'; then wps_load 2>&1
+	  elif tail -n1 $events | grep ':"start'; then wps_load 2>&1
+	  elif tail -n1 $events | grep ':"stop'; then wps_load 2>&1
+	  fi
+	done
 }
 
 # SSL
