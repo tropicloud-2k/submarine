@@ -2,7 +2,14 @@
 # RELOAD
 # ---------------------------------------------------------------------------------
 
-wps_load() {
+wps_mount() { 
+
+	rm -rf /etc/nginx/conf.d/*
+
+	cat $etc/nginx.conf > /etc/nginx/nginx.conf
+	cat $etc/default.conf > /etc/nginx/conf.d/default.conf
+	
+	find $run -type f -exec chmod +x {} \;
 
 	cd /tmp
 	
@@ -10,11 +17,6 @@ wps_load() {
 	echo "" > domains.json
 	echo "" > domains.txt
 	
-	rm -rf /etc/nginx/conf.d/*
-	
-	cat $etc/nginx.conf > /etc/nginx/nginx.conf
-	cat $etc/default.conf > /etc/nginx/conf.d/default.conf
-
 	docker="curl -sN --unix-socket docker.sock -X GET http:"
 	containers="`$docker/containers/json | jq -r '.[].Id'`"
 	
@@ -45,8 +47,8 @@ wps_load() {
 		servers="`for server in $upstream; do echo "server $server:$port;"; done`"
 				
 		if [[  $ssl == 'true'  ]];
-		then cat $etc/proxy443.conf | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" > /etc/nginx/conf.d/${domain}.conf
-		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" > /etc/nginx/conf.d/${domain}.conf
+		then cat $etc/proxy443.conf | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
+		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
 		fi
 		
 		if [[  $ssl == 'true'  ]]; then

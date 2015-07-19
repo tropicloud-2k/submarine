@@ -10,17 +10,6 @@ wps_header() {
 \033[0m"
 }
 
-# MOUNT
-# ---------------------------------------------------------------------------------
-
-wps_mount() { 
-
-	ln -sf /dev/stdout /var/log/nginx/access.log
-	ln -sf /dev/stderr /var/log/nginx/error.log
-	
-	find $run -type f -exec chmod +x {} \;
-}
-
 # LISTEN
 # ---------------------------------------------------------------------------------	
 
@@ -57,7 +46,6 @@ wps_start() {
 
 	wps_header "Start"
 	wps_mount
-	wps_load
 
 	exec s6-svscan $run
 }
@@ -68,7 +56,7 @@ wps_start() {
 wps_reload() { 
 
 	wps_header "Reload"
-	wps_load
+	wps_mount
 	
-	nginx -s reload
+	exec /usr/sbin/nginx -s reload
 }
