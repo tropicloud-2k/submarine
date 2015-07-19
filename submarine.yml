@@ -11,7 +11,7 @@ nginx:
   - 80:80/tcp
   - 443:443/tcp
   volumes:
-  - /var/wps/ssl:/etc/nginx/certs
+  - /var/ssl:/etc/nginx/certs
   - /var/run/docker.sock:/tmp/docker.sock:ro
 redis:
   image: redis
