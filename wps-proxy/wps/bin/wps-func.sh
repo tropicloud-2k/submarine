@@ -28,15 +28,24 @@ wps_listen() {
 
 wps_events() {
 
-	while inotifywait -e modify /tmp/events.json; do
+	while inotifywait -m -e modify /tmp/events.json; do
 	
 		status="`tail -n1 /tmp/events.json | jq -r '.status'`"
 		
-		if [[  $status = 'start' || $status = 'die'  ]];
-		then wps_reload &
-		fi
+		  if [[  $status = 'start'  ]]; then wps_reload &
+		elif [[  $status = 'die'  ]]; then wps_reload &
+		  fi
 		
-	done	
+	done
+}
+
+# SSL
+# ---------------------------------------------------------------------------------	
+
+wps_ssl() {
+
+	inotifywait -m /wps/ssl --format '%w%f' -e create | wps_reload
+
 }
 
 # START
