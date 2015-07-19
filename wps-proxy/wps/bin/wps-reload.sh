@@ -4,13 +4,9 @@
 
 wps_reload() {
 
+	wps_mount
+	
 	cd /tmp
-	
-	echo "" > domains.json
-	echo "" > domains.txt
-	
-	cat $etc/nginx.conf > /etc/nginx/nginx.conf
-	cat $etc/default.conf > /etc/nginx/conf.d/default.conf
 	
 	docker="curl -sN --unix-socket docker.sock -X GET http:"
 	containers="`$docker/containers/json | jq -r '.[].Id'`"
@@ -47,6 +43,10 @@ wps_reload() {
 		fi
 		
 	done
+	
+	if [[  $ssl == 'true'  ]]; then
+		while [[  ! -f $ssl/$domain.crt  ]] && [[  ! -f $ssl/$domain.key  ]]; do sleep 1; done
+	fi
 	
 	nginx -s reload
 }
