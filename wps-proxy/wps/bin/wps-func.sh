@@ -32,8 +32,8 @@ wps_events() {
 	
 		status="`tail -n1 /tmp/events.json | jq -r '.status'`"
 		
-		  if [[  $status = 'start'  ]]; then wps_reload &
-		elif [[  $status = 'die'  ]]; then wps_reload &
+		  if [[  $status == 'start'  ]]; then wps_reload &
+		elif [[  $status == 'die'  ]]; then wps_reload &
 		  fi
 		
 	done
@@ -44,9 +44,9 @@ wps_events() {
 
 wps_ssl() {
 
-	inotifywait -m -e create /wps/ssl | wps_reload
-
-
+	inotifywait -mq -e create /wps/ssl |
+    while read file; do wps_reload &
+    done
 }
 
 # START
