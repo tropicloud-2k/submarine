@@ -33,26 +33,29 @@ wps_load() {
 	done
 	
 	domains="`cat domains.json | jq -r '.domain' | awk '!a[$0]++'`"
-	servers="`jq -r '. | select(.domain == "'$domain'") | .ip' < domains.json`"
-	ssl="`jq -r '. | select(.domain == "'$domain'") | .ssl' < domains.json | awk '!a[$0]++'`"
 
-	if [[  $ssl == 'true'  ]];
-	then port='443' && if [[  ! -f /wps/ssl/${domain}.crt  ]]; then wps_ssl $domain;fi
-	else port='80'
-	fi
-	
 	for domain in $domains; do
+	
+		servers="`jq -r '. | select(.domain == "'$domain'") | .ip' < domains.json`"
+		ssl="`jq -r '. | select(.domain == "'$domain'") | .ssl' < domains.json | awk '!a[$0]++'`"
+
+		if [[  $ssl == 'true'  ]];
+		then port='443' && if [[  ! -f /wps/ssl/${domain}.crt  ]]; then wps_ssl $domain; fi
+		else port='80'
+		fi
 	
 		cat >> /etc/nginx/conf.d/default.conf <<EOF
 upstream $domain {
 EOF
 		for server in $servers; do 
 			echo "server $server:$port;" >> /etc/nginx/conf.d/default.conf
-		done && echo -e "}\n" >> /etc/nginx/conf.d/default.conf
+		done
+		echo -e "}\n" >> /etc/nginx/conf.d/default.conf
 				
 		if [[  $ssl == 'true'  ]];
 		then cat $etc/proxy443.conf | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
 		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
 		fi
+		
 	done
 }
