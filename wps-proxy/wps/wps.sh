@@ -8,7 +8,6 @@
 
 export bin="/wps/bin"
 export etc="/wps/etc"
-export ssl="/wps/ssl"
 export run="/wps/run"
 
 for f in $bin/*;

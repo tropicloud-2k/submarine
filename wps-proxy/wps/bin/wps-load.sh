@@ -40,7 +40,7 @@ wps_load() {
 		ssl="`jq -r '. | select(.domain == "'$domain'") | .ssl' < domains.json | awk '!a[$0]++'`"
 		
 		if [[  $ssl == 'true'  ]];
-		then port='443' && if [[  ! -f ${ssl}/${domain}.crt  ]]; then wps_ssl $domain;fi
+		then port='443' && if [[  ! -f /wps/ssl/${domain}.crt  ]]; then wps_ssl $domain;fi
 		else port='80'
 		fi
 		

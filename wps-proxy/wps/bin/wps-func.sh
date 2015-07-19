@@ -44,7 +44,7 @@ wps_events() {
 
 wps_ssl() {
 
-	cd $ssl && curl -sL http://git.io/vmgTS | bash -s $1
+	cd /wps/ssl && curl -sL http://git.io/vmgTS | bash -s $1
 }
 
 # START
