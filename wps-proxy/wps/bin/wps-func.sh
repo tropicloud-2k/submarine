@@ -28,7 +28,7 @@ wps_listen() {
 
 wps_events() {
 
-	while inotifywait -m -e modify /tmp/events.json; do
+	while inotifywait -e modify /tmp/events.json; do
 	
 		status="`tail -n1 /tmp/events.json | jq -r '.status'`"
 		
@@ -44,7 +44,8 @@ wps_events() {
 
 wps_ssl() {
 
-	inotifywait -m /wps/ssl --format '%w%f' -e create | wps_reload
+	inotifywait -m -e create /wps/ssl | wps_reload
+
 
 }
 
