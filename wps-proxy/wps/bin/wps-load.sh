@@ -1,8 +1,8 @@
 
-# RELOAD
+# LOAD
 # ---------------------------------------------------------------------------------
 
-wps_mount() { 
+wps_load() { 
 
 	rm -rf /etc/nginx/conf.d/*
 
@@ -49,10 +49,6 @@ wps_mount() {
 		if [[  $ssl == 'true'  ]];
 		then cat $etc/proxy443.conf | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
 		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
-		fi
-		
-		if [[  $ssl == 'true'  ]]; then
-			while ! [[  -f ${ssl}/${domain}.crt  ]]; do sleep 1; done
-		fi
+
 	done
 }

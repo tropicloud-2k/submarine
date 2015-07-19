@@ -45,7 +45,7 @@ wps_events() {
 wps_start() { 
 
 	wps_header "Start"
-	wps_mount
+	wps_load
 
 	exec s6-svscan $run
 }
@@ -56,7 +56,7 @@ wps_start() {
 wps_reload() { 
 
 	wps_header "Reload"
-	wps_mount
+	wps_load
 	
 	exec /usr/sbin/nginx -s reload
 }
