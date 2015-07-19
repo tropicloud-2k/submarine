@@ -42,8 +42,8 @@ wps_reload() {
 		servers="`for server in $upstream; do echo "server $server:$port;"; done`"
 				
 		if [[  $ssl == 'true'  ]];
-		then cat $etc/proxy443.conf | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
-		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
+		then cat $etc/proxy443.conf | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" > /etc/nginx/conf.d/$domain.conf
+		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" > /etc/nginx/conf.d/$domain.conf
 		fi
 		
 	done

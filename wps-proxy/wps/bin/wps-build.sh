@@ -16,7 +16,10 @@ wps_build() {
 	
 	rm -rf /var/cache/apk/*
 	rm -rf /var/lib/apt/lists/*
-
+	
+	mkdir -p /tmp/nginx/client-body
+	mkdir -p /etc/nginx/conf.d
+	
 	ln -s /wps/wps.sh /usr/bin/wps
 	chmod +x /usr/bin/wps
 
