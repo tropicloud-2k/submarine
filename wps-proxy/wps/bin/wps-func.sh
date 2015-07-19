@@ -15,6 +15,7 @@ wps_header() {
 
 wps_mount() { 
 
+	echo "" > /tmp/events.json
 	echo "" > /tmp/domains.json
 	echo "" > /tmp/domains.txt
 	
