@@ -31,10 +31,10 @@ wps_events() {
 	events="/tmp/events.json"
 	
 	while inotifywait -e modify $events; do
-	    if tail -n1 $events | grep ':"exec_start'; then wps_load 2>&1
-	  elif tail -n1 $events | grep ':"restart'; then wps_load 2>&1
-	  elif tail -n1 $events | grep ':"start'; then wps_load 2>&1
-	  elif tail -n1 $events | grep ':"stop'; then wps_load 2>&1
+	    if tail -n1 $events | grep ':"exec_start'; then wps_reload 2>&1
+	  elif tail -n1 $events | grep ':"restart'; then wps_reload 2>&1
+	  elif tail -n1 $events | grep ':"start'; then wps_reload 2>&1
+	  elif tail -n1 $events | grep ':"stop'; then wps_reload 2>&1
 	  fi
 	done
 }
@@ -64,15 +64,7 @@ wps_start() {
 wps_reload() { 
 
 	wps_header "Reload"
-	
-	event="`tail -n1 /tmp/events.json`"
-
-	  if [[  $event == *'status":"exec_start'*  ]]; then wps_load
-	elif [[  $event == *'status":"restart'*  ]];    then wps_load
-	elif [[  $event == *'status":"exec_start'*  ]]; then wps_load
-	elif [[  $event == *'status":"stop'*  ]];       then wps_load
-	else exit
-	  fi
+	wps_load
 		
 	nginx -s reload
 }
