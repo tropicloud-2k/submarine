@@ -1,4 +1,0 @@
-#!/bin/sh
-
-s6-svc -Dd /wps/run/ssl
-rm -rf /wps/run/ssl
