@@ -29,3 +29,56 @@ wps_mount() {
 	
 	find $run -type f -exec chmod +x {} \;
 }
+
+# LISTEN
+# ---------------------------------------------------------------------------------	
+
+wps_listen() {
+
+	curl -X GET http:/events \
+	--unix-socket /tmp/docker.sock  \
+	--no-buffer \
+	--silent \
+	> /tmp/events.json
+
+}
+
+# EVENTS
+# ---------------------------------------------------------------------------------	
+
+wps_events() {
+
+	while inotifywait -e modify /tmp/events.json; do
+	
+		status="`tail -n1 /tmp/events.json | jq -r '.status'`"
+		
+		if [[  $status = 'start' || $status = 'die'  ]];
+		then wps_reload &
+		fi
+		
+	done	
+}
+
+# START
+# ---------------------------------------------------------------------------------
+
+wps_start() { 
+
+	wps_header "Start"
+	wps_mount
+	wps_load
+
+	exec s6-svscan $run
+}
+
+# RELOAD
+# ---------------------------------------------------------------------------------
+
+wps_reload() { 
+
+	wps_header "Reload"
+	wps_mount
+	wps_load
+	
+	nginx -s reload
+}
