@@ -4,15 +4,6 @@
 
 wps_load() { 
 
-	event="`tail -n1 /tmp/events.json`"
-
-	  if [[  $event == *'status":"exec_start'*  ]]; then /bin/true
-	elif [[  $event == *'status":"restart'*  ]];    then /bin/true
-	elif [[  $event == *'status":"exec_start'*  ]]; then /bin/true
-	elif [[  $event == *'status":"stop'*  ]];       then /bin/true
-	else exit
-	fi
-	
 	rm -rf /etc/nginx/conf.d/*
 
 	cat $etc/nginx.conf > /etc/nginx/nginx.conf

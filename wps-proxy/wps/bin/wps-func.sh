@@ -56,7 +56,15 @@ wps_start() {
 wps_reload() { 
 
 	wps_header "Reload"
-	wps_load
 	
+	event="`tail -n1 /tmp/events.json`"
+
+	  if [[  $event == *'status":"exec_start'*  ]]; then wps_load
+	elif [[  $event == *'status":"restart'*  ]];    then wps_load
+	elif [[  $event == *'status":"exec_start'*  ]]; then wps_load
+	elif [[  $event == *'status":"stop'*  ]];       then wps_load
+	else exit
+	  fi
+		
 	nginx -s reload
 }
