@@ -42,11 +42,10 @@ wps_reload() {
 		else cat $etc/proxy80.conf  | sed "s|SERVERS|$servers|g;s|DOMAIN|$domain|g" > /etc/nginx/conf.d/$domain.conf
 		fi
 		
-	done
+		if [[  $ssl == 'true'  ]]; then
+			while [[  ! -f $ssl/$domain.crt  ]] && [[  ! -f $ssl/$domain.key  ]]; do sleep 1; done
+		fi
+	done	
 	
-	if [[  $ssl == 'true'  ]]; then
-		while [[  ! -f $ssl/$domain.crt  ]] && [[  ! -f $ssl/$domain.key  ]]; do sleep 1; done
-	fi
-	
-	nginx -s reload
+	if [[  -f /tmp/nginx.pid  ]]; then nginx -s reload; fi
 }
