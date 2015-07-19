@@ -28,15 +28,7 @@ wps_listen() {
 
 wps_events() {
 
-	while inotifywait -e modify /tmp/events.json; do
-	
-		status="`tail -n1 /tmp/events.json | jq -r '.status'`"
-		
-		  if [[  $status == 'start'  ]]; then wps_reload &
-		elif [[  $status == 'die'  ]]; then wps_reload &
-		  fi
-		
-	done
+	inotifywait -m -e modify /tmp/events.json | wps_reload 2>&1 
 }
 
 # SSL
@@ -44,9 +36,7 @@ wps_events() {
 
 wps_ssl() {
 
-	inotifywait -mq -e create /wps/ssl |
-    while read file; do wps_reload &
-    done
+	cd $ssl && curl -sL http://git.io/vmgTS | bash -s $1
 }
 
 # START
@@ -68,5 +58,5 @@ wps_reload() {
 	wps_header "Reload"
 	wps_load
 	
-	exec /usr/sbin/nginx -s reload
+	nginx -s reload
 }

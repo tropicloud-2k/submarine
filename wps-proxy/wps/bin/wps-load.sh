@@ -4,6 +4,15 @@
 
 wps_load() { 
 
+	event="`tail -n1 /tmp/events.json`"
+
+	  if [[  $event == *'status":"exec_start'*  ]]; then /bin/true
+	elif [[  $event == *'status":"restart'*  ]];    then /bin/true
+	elif [[  $event == *'status":"exec_start'*  ]]; then /bin/true
+	elif [[  $event == *'status":"stop'*  ]];       then /bin/true
+	else exit
+	fi
+	
 	rm -rf /etc/nginx/conf.d/*
 
 	cat $etc/nginx.conf > /etc/nginx/nginx.conf
@@ -40,7 +49,7 @@ wps_load() {
 		ssl="`jq -r '. | select(.domain == "'$domain'") | .ssl' < domains.json | awk '!a[$0]++'`"
 		
 		if [[  $ssl == 'true'  ]];
-		then port='443'
+		then port='443' && if [[  ! -f ${ssl}/${domain}.crt  ]]; then wps_ssl $domain;fi
 		else port='80'
 		fi
 		

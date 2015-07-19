@@ -12,7 +12,8 @@ wps_build() {
 	apk add --update \
 	bash curl jq nano s6 sudo \
 	inotify-tools \
-	nginx-naxsi
+	nginx-naxsi \
+	openssl
 	
 	rm -rf /var/cache/apk/*
 	rm -rf /var/lib/apt/lists/*
