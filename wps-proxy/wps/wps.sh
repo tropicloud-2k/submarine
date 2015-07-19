@@ -9,7 +9,6 @@
 export bin="/wps/bin"
 export etc="/wps/etc"
 export run="/wps/run"
-export events="/tmp/events.json"
 
 for f in $bin/*;
 	do . $f

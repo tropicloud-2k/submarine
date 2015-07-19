@@ -4,9 +4,9 @@
 
 wps_events() {
 
-	while inotifywait -e modify $events; do
+	while inotifywait -e modify /tmp/events.json; do
 	
-		status="`tail -n1 $events | jq -r '.status'`"
+		status="`tail -n1 /tmp/events.json | jq -r '.status'`"
 		
 		if [[  $status = 'start' || $status = 'die'  ]];
 		then wps_reload &

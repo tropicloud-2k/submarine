@@ -8,6 +8,6 @@ wps_listen() {
 	--unix-socket /tmp/docker.sock  \
 	--no-buffer \
 	--silent \
-	> $events
+	> /tmp/events.json
 
 }
