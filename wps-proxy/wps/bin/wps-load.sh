@@ -48,9 +48,9 @@ wps_load() {
 upstream $domain {
 EOF
 		for server in $servers; do 
-			echo "server $server:$port;" >> /etc/nginx/conf.d/default.conf
+			echo "server $server:$port;" >> /etc/nginx/conf.d/${domain}.conf
 		done
-		echo -e "}\n" >> /etc/nginx/conf.d/default.conf
+		echo -e "}\n" >> /etc/nginx/conf.d/${domain}.conf
 				
 		if [[  $ssl == 'true'  ]];
 		then cat $etc/proxy443.conf | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/${domain}.conf
