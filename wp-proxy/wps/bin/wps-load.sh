@@ -41,10 +41,8 @@ wps_load() {
 		else port='80'
 		fi
 	
-		echo -e "upstream $domain {" > ${config}/${domain}.conf
+		echo -e "upstream $domain {\n" > ${config}/${domain}.conf
 		for server in $servers; do
-# 			name="`jq -r '. | select(.ip == "'$server'") | .name' < domains.json`"
-# 			echo -e "	##$name\n	server $server:$port;\n" | sed "s|##/|# |g" >> ${config}/${domain}.conf
 			echo -e "	server $server:$port;" >> ${config}/${domain}.conf
 		done
 		echo -e "}\n" >> ${config}/${domain}.conf

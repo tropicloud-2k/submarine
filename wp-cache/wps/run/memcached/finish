@@ -1,0 +1,4 @@
+#!/bin/sh
+
+s6-svc -Dd /wps/run/memcached
+rm -rf /wps/run/memcached
