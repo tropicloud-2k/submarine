@@ -44,17 +44,17 @@ wps_load() {
 		else port='80'
 		fi
 	
-		cat >> /etc/nginx/conf.d/${domain}.conf <<EOF
+		cat >> /etc/nginx/conf.d/default.conf <<EOF
 upstream $domain {
 EOF
 		for server in $servers; do 
-			echo "	server $server:$port;" >> /etc/nginx/conf.d/${domain}.conf
+			echo "	server $server:$port;" >> /etc/nginx/conf.d/default.conf
 		done
-		echo -e "}\n" >> /etc/nginx/conf.d/${domain}.conf
+		echo -e "}\n" >> /etc/nginx/conf.d/default.conf
 				
 		if [[  $ssl == 'true'  ]];
-		then cat $etc/proxy443.conf | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/${domain}.conf
-		else cat $etc/proxy80.conf  | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/${domain}.conf
+		then cat $etc/proxy443.conf | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
+		else cat $etc/proxy80.conf  | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
 		fi
 		
 	done
