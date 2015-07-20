@@ -30,7 +30,7 @@ wps_load() {
 		then echo -e "{\"domain\":\"$domain\",\"ip\":\"$ip\",\"ssl\":\"$ssl\"}" >> domains.json
 		fi
 
-	done
+	done && unset domain
 	
 	domains="`cat domains.json | jq -r '.domain' | awk '!a[$0]++'`"
 
@@ -44,17 +44,17 @@ wps_load() {
 		else port='80'
 		fi
 	
-		cat >> /etc/nginx/conf.d/default.conf <<EOF
+		cat >> /etc/nginx/conf.d/${domain}.conf <<EOF
 upstream $domain {
 EOF
 		for server in $servers; do 
-			echo "	server $server:$port;" >> /etc/nginx/conf.d/default.conf
+			echo "	server $server:$port;" >> /etc/nginx/conf.d/${domain}.conf
 		done
-		echo -e "}\n" >> /etc/nginx/conf.d/default.conf
+		echo -e "}\n" >> /etc/nginx/conf.d/${domain}.conf
 				
 		if [[  $ssl == 'true'  ]];
-		then cat $etc/proxy443.conf | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
-		else cat $etc/proxy80.conf  | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/default.conf
+		then cat $etc/proxy443.conf | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/${domain}.conf
+		else cat $etc/proxy80.conf  | sed "s|DOMAIN|$domain|g" >> /etc/nginx/conf.d/${domain}.conf
 		fi
 		
 	done
