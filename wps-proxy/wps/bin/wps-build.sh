@@ -18,6 +18,7 @@ wps_build() {
 	rm -rf /var/cache/apk/*
 	rm -rf /var/lib/apt/lists/*
 	
+	cat /wps/etc/nginx.conf > /etc/nginx/nginx.conf
 	mkdir -p /tmp/nginx/client-body
 	mkdir -p /etc/nginx/conf.d
 	

@@ -6,16 +6,12 @@ wps_load() {
 
 	rm -rf /etc/nginx/conf.d/*
 
-	cat $etc/nginx.conf > /etc/nginx/nginx.conf
-	cat $etc/default.conf > /etc/nginx/conf.d/default.conf
-	
 	find $run -type f -exec chmod +x {} \;
 
 	cd /tmp
 	
 	echo "" > events.json
 	echo "" > domains.json
-	echo "" > domains.txt
 	
 	docker="curl -sN --unix-socket docker.sock -X GET http:"
 	containers="`$docker/containers/json | jq -r '.[].Id'`"
@@ -23,11 +19,12 @@ wps_load() {
 	for id in $containers; do
 
 		domain="`$docker/containers/$id/json | jq -r '.Config.Env[]?' | grep WP_DOMAIN | cut -d= -f2`"
+		name="`$docker/containers/$id/json | jq -r '.Name'`"
 		ssl="`$docker/containers/$id/json | jq -r '.Config.Env[]?' | grep WP_SSL | cut -d= -f2`"
 		ip="`$docker/containers/$id/json | jq -r '.NetworkSettings.IPAddress'`"
 
 		if [[  ! -z $domain  ]]; 
-		then echo -e "{\"domain\":\"$domain\",\"ip\":\"$ip\",\"ssl\":\"$ssl\"}" >> domains.json
+		then echo -e "{\"domain\":\"$domain\",\"ssl\":\"$ssl\",\"ip\":\"$ip\",\"name\":\"$name\"}" >> domains.json
 		fi
 
 	done && unset domain
