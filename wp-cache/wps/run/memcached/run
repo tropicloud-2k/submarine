@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec /usr/bin/memcached -v -m ${CACHE_SIZE}
+exec memcached -v -m ${CACHE_SIZE}

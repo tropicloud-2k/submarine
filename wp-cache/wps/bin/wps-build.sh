@@ -22,6 +22,8 @@ wps_build() {
 	cat /wps/etc/memcached.conf > /etc/conf.d/memcached
 	cat /wps/etc/redis.conf > /etc/conf.d/redis
 	
+	mkdir /data
+	
 	ln -sf /wps/wps.sh /usr/bin/wps
 	chmod +x /usr/bin/wps
 
