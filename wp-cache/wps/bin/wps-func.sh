@@ -16,8 +16,6 @@ wps_header() {
 wps_start() { 
 
 	wps_header "Start"
-	wps_load
-
 	exec s6-svscan $run
 }
 
@@ -27,6 +25,5 @@ wps_start() {
 wps_root() { 
 	
 	wps_header "Logged in as \033[1;37mroot\033[0m"
-
 	su -l root
 }
