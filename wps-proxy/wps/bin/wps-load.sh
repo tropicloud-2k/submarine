@@ -41,7 +41,7 @@ wps_load() {
 		else port='80'
 		fi
 	
-		cat >> /etc/nginx/conf.d/${domain}.conf <<EOF
+		cat > /etc/nginx/conf.d/${domain}.conf <<EOF
 upstream $domain {
 EOF
 		for server in $servers; do
