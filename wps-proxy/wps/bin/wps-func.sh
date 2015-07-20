@@ -30,7 +30,7 @@ wps_events() {
 
 	events="/tmp/events.json"
 	
-	while inotifywait -q -e modify $events; do
+	while inotifywait -e modify $events; do
 	    if tail -n1 $events | grep ':"exec_start'; then wps_reload 2>&1 &
 	  elif tail -n1 $events | grep ':"restart'; then wps_reload 2>&1 &
 	  elif tail -n1 $events | grep ':"start'; then wps_reload 2>&1 &
