@@ -46,7 +46,7 @@ upstream $domain {
 EOF
 		for server in $servers; do
 			name="`jq -r '. | select(.ip == "'$server'") | .name' < domains.json`"
-			echo "	server $server:$port; # $name" >> /etc/nginx/conf.d/${domain}.conf
+			echo -e "	# $name\n	server $server:$port;\n" >> /etc/nginx/conf.d/${domain}.conf
 		done
 		echo -e "}\n" >> /etc/nginx/conf.d/${domain}.conf
 				
