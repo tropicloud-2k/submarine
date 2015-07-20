@@ -44,8 +44,9 @@ wps_load() {
 		cat >> /etc/nginx/conf.d/${domain}.conf <<EOF
 upstream $domain {
 EOF
-		for server in $servers; do 
-			echo "	server $server:$port;" >> /etc/nginx/conf.d/${domain}.conf
+		for server in $servers; do
+			name="`jq -r '. | select(.ip == "'$server'") | .name' < domains.json`"
+			echo "	server $server:$port; # $name" >> /etc/nginx/conf.d/${domain}.conf
 		done
 		echo -e "}\n" >> /etc/nginx/conf.d/${domain}.conf
 				
