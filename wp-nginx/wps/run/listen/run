@@ -1,6 +1,6 @@
 #!/bin/bash
 
-http_listen() { 
+function http_listen() { 
 HTTP_PORT="$1"
 HTTP_OUTPUT="/tmp/stdout"
 HTTP_LOCATION="Location:"
