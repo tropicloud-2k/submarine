@@ -1,3 +1,3 @@
 #!/bin/sh
 
-su -l redis -s /bin/sh -c "exec redis-server"
+su -l redis -s /bin/sh -c "exec redis-server /etc/conf.d/redis"

@@ -1,4 +1,3 @@
 #!/bin/sh
 
 s6-svc -Dd /wps/run/redis
-rm -rf /wps/run/redis
