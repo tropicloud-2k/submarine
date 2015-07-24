@@ -24,6 +24,8 @@ wps_build() {
 	
 	ln -sf /wps/wps.sh /usr/bin/wps
 	chmod +x /usr/bin/wps
+	
+	mv /wps/wps-listen.sh /wps/bin/wps-listen.sh
 
 	wps_header "Done!"
 }
