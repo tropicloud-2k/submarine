@@ -3,6 +3,7 @@
 # ---------------------------------------------------------------------------------
 
 wps_listen() { 
+if [[  ! -z $BASH  ]]; then
 
 	HTTP_PORT="8080"
 	HTTP_OUTPUT="/tmp/stdout"
@@ -48,5 +49,6 @@ wps_listen() {
 				fi
 			fi
 		done)
-	done
+	done	
+fi
 }
