@@ -8,7 +8,7 @@ mkfifo out
 trap "rm -f out" EXIT
 while true
 do
-  cat out | nc -l 8080 > >( # parse the netcat output, to build the answer redirected to the pipe "out".
+  cat out | nc -l 8080 | ( # parse the netcat output, to build the answer redirected to the pipe "out".
     export REQUEST=
     while read line
     do
@@ -40,7 +40,6 @@ do
             printf "%s\n%s %s\n\n%s\n" "$HTTP_404" "$HTTP_LOCATION" $REQUEST "Resource $REQUEST NOT FOUND!" > out
         fi
       fi
-    done
-  )
+    done)
 done
 }

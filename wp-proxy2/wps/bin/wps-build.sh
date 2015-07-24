@@ -22,8 +22,6 @@ wps_build() {
 	mkdir -p /tmp/nginx/client-body
 	mkdir -p /etc/nginx/conf.d
 	
-	mv /wps/wps-listen.sh /wps/bin/wps-listen.sh
-	sed -i 's|#!/bin/sh|#!/bin/bash|g' /wps/wps.sh
 	ln -sf /wps/wps.sh /usr/bin/wps
 	chmod +x /usr/bin/wps
 	
