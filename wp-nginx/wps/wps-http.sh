@@ -24,7 +24,7 @@ do cat $HTTP_OUTPUT | nc -l $HTTP_PORT > >(
 		then REQUEST=$(echo "$LINE" | cut -d ' ' -f2)
 			
 			# location ^/reload
-			elif echo $REQUEST | grep -qE '^/reload'
+			if echo $REQUEST | grep -qE '^/reload'
 			then /usr/bin/wps reload > $HTTP_OUTPUT
 			
 			# location /
