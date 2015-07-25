@@ -25,7 +25,7 @@ wps_http() {
 	get "/sites" sites_handler
 	sites_handler () {
 	    header "Content-Type" "text/plain"
-	    cat "/tmp/domains.json"
+	    cat "/tmp/domains.json" | jq '.'
 	}
 	get "/events" events_handler
 	events_handler () {
