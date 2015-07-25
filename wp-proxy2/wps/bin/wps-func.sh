@@ -22,26 +22,22 @@ wps_http() {
 	    header "Content-Type" "text/html"
 	    cat "/wps/inc/index.html"
 	}
-	
 	get "/sites" ps_handler
 	ps_handler () {
 	    header "Content-Type" "text/plain"
 	    cat /tmp/domains.json | jq '.'
 	}
-	
 	get "/events" ps_handler
 	ps_handler () {
 	    header "Content-Type" "text/plain"
 	    cat /tmp/events.json | jq '.'
 	}
-	
 	get "/reload" redirect_handler
 	redirect_handler () {
 	    header "Content-Type" "text/plain"
-	    nginx -s reload
+	    wps_reload
 	    echo "nginx reloaded"
 	}
-
 	wwwoosh_run martin_dispatch 8080
 }
 
@@ -52,7 +48,6 @@ wps_start() {
 
 	wps_header "Start"
 	wps_load
-
 	exec s6-svscan $run
 }
 
@@ -61,9 +56,7 @@ wps_start() {
 
 wps_reload() { 
 
-	wps_header "Reload"
-	wps_load
-		
+	wps_load		
 	nginx -s reload
 }
 
@@ -73,7 +66,6 @@ wps_reload() {
 wps_root() { 
 	
 	wps_header "Logged in as \033[1;37mroot\033[0m"
-
 	su -l root
 }
 
