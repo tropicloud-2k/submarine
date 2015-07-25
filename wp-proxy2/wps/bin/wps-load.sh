@@ -4,6 +4,7 @@
 
 wps_load() { 
 
+	find $run -type f -exec chmod +x {} \;
 	conf="/etc/nginx/conf.d"
 	rm -rf ${conf}/*
 
