@@ -22,11 +22,7 @@ wps_listen() {
 	    header "Content-Type" "text/html"
 	    cat "/wps/inc/index.html"
 	}
-	get "/reload" root_handler
-	root_handler () {
-	    header "Content-Type" "text/html"
-	    nginx -s reload
-	}
+
 	wwwoosh_run martin_dispatch 8080
 }
 
