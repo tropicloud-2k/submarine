@@ -4,6 +4,8 @@
 
 wps_load() { 
 
+	export PROXY_IP="`awk 'NR==1 {print $1}' /etc/hosts`"
+
 	find $run -type f -exec chmod +x {} \;
 	conf="/etc/nginx/conf.d"
 	rm -rf ${conf}/*
@@ -44,8 +46,8 @@ wps_load() {
 	
 		echo -e "upstream $domain {" > $vhost
 		for server in $servers; do
-			name="`jq -r '. | select(.ip == "'$server'") | .name' < domains.json`"
-			echo -e "	server $server:$port; # $name" >> $vhost
+# 			name="`jq -r '. | select(.ip == "'$server'") | .name' < domains.json | sed 's|/||g'`"
+			echo -e "	server $server:$port;" >> $vhost
 		done
 		echo -e "}\n" >> $vhost
 				
