@@ -78,14 +78,14 @@ function wwwoosh_run () {
     debug=""
     [ $# -gt 2 ] && debug="$3"
 
-    echo "Starting Wwwoosh on port $port..."
+    echo "[wwwoosh] Listening on port $port"
 
     while true; do
 
         if [ "$debug" ]; then
-            nc -l $port < "$wwwoosh_fifo" | tee /dev/stderr | handle_request "$app" | handle_response | tee /dev/stderr > "$wwwoosh_fifo"
+            nc -k -l $port < "$wwwoosh_fifo" | tee /dev/stderr | handle_request "$app" | handle_response | tee /dev/stderr > "$wwwoosh_fifo"
         else
-            nc -l $port < "$wwwoosh_fifo" | handle_request "$app" | handle_response > "$wwwoosh_fifo"
+            nc -k -l $port < "$wwwoosh_fifo" | handle_request "$app" | handle_response > "$wwwoosh_fifo"
         fi
 
     done

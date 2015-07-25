@@ -22,22 +22,26 @@ wps_http() {
 	    header "Content-Type" "text/html"
 	    cat "/wps/inc/index.html"
 	}
+	
 	get "/sites" sites_handler
 	sites_handler () {
 	    header "Content-Type" "text/plain"
-	    cat "/tmp/domains.json" | jq '.'
+	    cat "/tmp/domains.json"
 	}
+	
 	get "/events" events_handler
 	events_handler () {
 	    header "Content-Type" "text/plain"
-	    cat "/tmp/events.json" | jq '.'
+	    cat "/tmp/events.json"
 	}
+	
 	get "/reload" reload_handler
 	reload_handler () {
 	    header "Content-Type" "text/plain"
 	    wps_reload
 	    echo "nginx reloaded"
 	}
+	
 	wwwoosh_run martin_dispatch 8080
 }
 

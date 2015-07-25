@@ -24,7 +24,7 @@ wps_load() {
 		ip="`$docker/containers/$id/json | jq -r '.NetworkSettings.IPAddress'`"
 
 		if [[  ! -z $domain  ]]; 
-		then echo -e "{\"domain\":\"$domain\",\"ssl\":\"$ssl\",\"ip\":\"$ip\",\"name\":\"$name\"}" >> domains.json
+		then echo -e "{\"domain\":\"$domain\",\"ip\":\"$ip\",\"ssl\":\"$ssl\",\"name\":\"$name\"}" >> domains.json
 		fi
 
 	done && unset domain
@@ -43,7 +43,8 @@ wps_load() {
 	
 		echo -e "upstream $domain {\n" > ${config}/${domain}.conf
 		for server in $servers; do
-			echo -e "	server $server:$port;" >> ${config}/${domain}.conf
+			name="`jq -r '. | select(.ip == "'$server'") | .name' < domains.json`"
+			echo -e "	server $server:$port; # $name" >> ${config}/${domain}.conf
 		done
 		echo -e "}\n" >> ${config}/${domain}.conf
 				
