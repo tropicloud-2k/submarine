@@ -5,5 +5,5 @@ ADD wps /wps
 RUN /wps/wps.sh build
 
 EXPOSE 80 443 8080
-ENTRYPOINT /bin/bash
-CMD wps start
+ENTRYPOINT ["wps"]
+CMD ["start"]
