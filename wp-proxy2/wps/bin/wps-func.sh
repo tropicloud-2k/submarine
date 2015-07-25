@@ -18,16 +18,16 @@ wps_http() {
 	. /wps/inc/martin.sh
 	
 	get "/" root_handler
-	function root_handler() {
+	root_handler() {
 	    header "Content-Type" "text/html"
 	    cat "/wps/inc/index.html"
 	}
 	
 	get "/reload" root_handler
-	function root_handler() {
+	root_handler() {
 	    header "Content-Type" "text/html"
 	    nginx -s reload
-	    echo "Done!"
+	    echo "Done"
 	}
 
 	wwwoosh_run martin_dispatch 8080
