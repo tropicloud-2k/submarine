@@ -10,27 +10,24 @@ wps_header() {
 \033[0m"
 }
 
-# EVENTS
+# LISTEN
 # ---------------------------------------------------------------------------------	
 
-wps_events() {
+wps_listen() {
 
-	events="/tmp/events.json"
+	. /wps/inc/martin.sh
 	
-	while inotifywait -e modify $events; do
-	    if tail -n1 $events | grep ':"restart'; then wps_reload 2>&1 &
-	  elif tail -n1 $events | grep ':"start'; then wps_reload 2>&1 &
-	  elif tail -n1 $events | grep ':"stop'; then wps_reload 2>&1 &
-	  fi
-	done
-}
-
-# SSL
-# ---------------------------------------------------------------------------------	
-
-wps_ssl() {
-
-	cd /wps/ssl && curl -sL http://git.io/vmgTS | bash -s $1
+	get "/" root_handler
+	root_handler () {
+	    header "Content-Type" "text/html"
+	    echo "Splendido!"
+	}
+	get "/reload" root_handler
+	root_handler () {
+	    header "Content-Type" "text/html"
+	    nginx -s reload
+	}
+	wwwoosh_run martin_dispatch 8080
 }
 
 # START
@@ -49,8 +46,6 @@ wps_start() {
 
 wps_reload() { 
 
-	sleep 5
-	
 	wps_header "Reload"
 	wps_load
 		

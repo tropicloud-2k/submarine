@@ -11,6 +11,7 @@ wps_build() {
 		
 	apk add --update \
 	bash curl jq nano s6 sudo \
+	netcat-openbsd \
 	inotify-tools \
 	nginx-naxsi \
 	openssl
@@ -24,6 +25,6 @@ wps_build() {
 	
 	ln -sf /wps/wps.sh /usr/bin/wps
 	chmod +x /usr/bin/wps
-	
+
 	wps_header "Done!"
 }
