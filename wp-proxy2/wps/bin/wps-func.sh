@@ -20,7 +20,7 @@ wps_listen() {
 	get "/" root_handler
 	root_handler () {
 	    header "Content-Type" "text/html"
-	    echo "Splendido!"
+	    cat "/wps/inc/index.html"
 	}
 	get "/reload" root_handler
 	root_handler () {
