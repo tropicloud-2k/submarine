@@ -4,9 +4,8 @@
 
 wps_load() { 
 
-	find $run -type f -exec chmod +x {} \;
-	config="/etc/nginx/conf.d"
-	rm -rf ${config}/*
+	conf="/etc/nginx/conf.d"
+	rm -rf ${conf}/*
 
 	cd /tmp
 	
@@ -33,6 +32,7 @@ wps_load() {
 
 	for domain in $domains; do
 	
+		vhost="${conf}/${domain}"
 		servers="`jq -r '. | select(.domain == "'$domain'") | .ip' < domains.json`"
 		ssl="`jq -r '. | select(.domain == "'$domain'") | .ssl' < domains.json | awk '!a[$0]++'`"
 
@@ -41,16 +41,16 @@ wps_load() {
 		else port='80'
 		fi
 	
-		echo -e "upstream $domain {\n" > ${config}/${domain}.conf
+		echo -e "upstream $domain {" > $vhost
 		for server in $servers; do
 			name="`jq -r '. | select(.ip == "'$server'") | .name' < domains.json`"
-			echo -e "	server $server:$port; # $name" >> ${config}/${domain}.conf
+			echo -e "	server $server:$port; # $name" >> $vhost
 		done
-		echo -e "}\n" >> ${config}/${domain}.conf
+		echo -e "}\n" >> $vhost
 				
 		if [[  $ssl == 'true'  ]];
-		then cat $etc/proxy443.conf | sed "s|DOMAIN|$domain|g" >> ${config}/${domain}.conf
-		else cat $etc/proxy80.conf  | sed "s|DOMAIN|$domain|g" >> ${config}/${domain}.conf
+		then cat $etc/proxy443.conf | sed "s|DOMAIN|$domain|g" >> $vhost
+		else cat $etc/proxy80.conf  | sed "s|DOMAIN|$domain|g" >> $vhost
 		fi
 		
 	done
