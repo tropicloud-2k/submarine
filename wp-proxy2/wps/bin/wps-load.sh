@@ -8,7 +8,7 @@ wps_load() {
 	config="/etc/nginx/conf.d"
 	rm -rf ${config}/*
 
-	cd /tmp && sleep 3
+	cd /tmp
 	
 	echo "" > events.json
 	echo "" > domains.json
