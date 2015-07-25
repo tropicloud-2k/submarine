@@ -25,12 +25,12 @@ wps_http() {
 	get "/sites" ps_handler
 	ps_handler () {
 	    header "Content-Type" "text/plain"
-	    cat /tmp/domains.json | jq '.'
+	    cat "/tmp/domains.json"
 	}
 	get "/events" ps_handler
 	ps_handler () {
 	    header "Content-Type" "text/plain"
-	    cat /tmp/events.json | jq '.'
+	    cat "/tmp/events.json" | jq '.'
 	}
 	get "/reload" redirect_handler
 	redirect_handler () {
