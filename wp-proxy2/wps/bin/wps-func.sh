@@ -33,7 +33,7 @@ wps_http() {
 	redirect_handler () {
 	    header "Content-Type" "text/plain"
 	    nginx -s reload
-	    echo "reloading nginx... done!"
+	    echo "nginx reloaded"
 	}
 
 	wwwoosh_run martin_dispatch 8080
