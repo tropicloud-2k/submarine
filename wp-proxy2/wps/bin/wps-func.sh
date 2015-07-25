@@ -18,16 +18,21 @@ wps_http() {
 	. /wps/inc/martin.sh
 	
 	get "/" root_handler
-	root_handler() {
+	root_handler () {
 	    header "Content-Type" "text/html"
 	    cat "/wps/inc/index.html"
 	}
 	
-	get "/reload" root_handler
-	root_handler() {
-	    nginx -s reload > /dev/null 2>&1 &
-	    header "Content-Type" "text/html"
-	    echo -e "Done\n"
+	get "/ps" ps_handler
+	ps_handler () {
+	    header "Content-Type" "text/plain"
+	    ps aux
+	}
+	
+	get "/redirect" redirect_handler
+	redirect_handler () {
+	    status 302
+	    header "Location" "https://github.com/"
 	}
 
 	wwwoosh_run martin_dispatch 8080
