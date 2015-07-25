@@ -25,9 +25,9 @@ wps_http() {
 	
 	get "/reload" root_handler
 	root_handler() {
+	    nginx -s reload > /dev/null 2>&1 &
 	    header "Content-Type" "text/html"
-	    nginx -s reload
-	    echo "Done"
+	    echo -e "Done\n"
 	}
 
 	wwwoosh_run martin_dispatch 8080
