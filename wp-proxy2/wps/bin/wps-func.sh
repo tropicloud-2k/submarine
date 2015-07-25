@@ -23,10 +23,16 @@ wps_http() {
 	    cat "/wps/inc/index.html"
 	}
 	
-	get "/ps" ps_handler
+	get "/sites" ps_handler
 	ps_handler () {
 	    header "Content-Type" "text/plain"
-	    ps aux
+	    cat /tmp/domains.json | jq '.'
+	}
+	
+	get "/events" ps_handler
+	ps_handler () {
+	    header "Content-Type" "text/plain"
+	    cat /tmp/events.json | jq '.'
 	}
 	
 	get "/reload" redirect_handler
@@ -92,8 +98,7 @@ wps_events() {
 	events="/tmp/events.json"
 	
 	while inotifywait -e modify $events; do
-	    if tail -n1 $events | grep ':"restart'; then wps_reload 2>&1 &
-	  elif tail -n1 $events | grep ':"start'; then wps_reload 2>&1 &
+	  if tail -n1 $events | grep ':"start'; then wps_reload 2>&1 &
 	  elif tail -n1 $events | grep ':"stop'; then wps_reload 2>&1 &
 	  fi
 	done
