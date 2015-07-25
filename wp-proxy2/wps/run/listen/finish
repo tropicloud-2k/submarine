@@ -1,4 +1,0 @@
-#!/bin/sh
-
-s6-svc -Dd /wps/run/listen
-rm -rf /wps/run/listen

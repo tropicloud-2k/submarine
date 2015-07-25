@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # WPS-NGINX
 # ---------------------------------------------------------------------------------
@@ -17,8 +17,10 @@ done
   if [[  $1 == 'build'  ]];   then wps_build
 elif [[  $1 == 'start'  ]];   then wps_start
 elif [[  $1 == 'listen'  ]];  then wps_listen
+elif [[  $1 == 'events'  ]];  then wps_events
 elif [[  $1 == 'reload'  ]];  then wps_reload
+elif [[  $1 == 'http'  ]];    then wps_http
 elif [[  $1 == 'root'  ]];    then wps_root
 elif [[  $1 == 'true'  ]];    then /bin/true
-else /bin/sh -c "$@"
+else /bin/bash -c "$@"
   fi
