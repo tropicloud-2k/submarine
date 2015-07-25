@@ -29,10 +29,10 @@ wps_http() {
 	    ps aux
 	}
 	
-	get "/redirect" redirect_handler
+	get "/reload" redirect_handler
 	redirect_handler () {
-	    status 302
-	    header "Location" "https://github.com/"
+	    header "Content-Type" "text/plain"
+	    nginx -s reload
 	}
 
 	wwwoosh_run martin_dispatch 8080
