@@ -80,13 +80,9 @@ function wwwoosh_run () {
 
     echo "[wwwoosh] Listening on port $port"
 
-    while true; do
-
-        if [ "$debug" ]; then
-            nc -k -l $port < "$wwwoosh_fifo" | tee /dev/stderr | handle_request "$app" | handle_response | tee /dev/stderr > "$wwwoosh_fifo"
-        else
-            nc -k -l $port < "$wwwoosh_fifo" | handle_request "$app" | handle_response > "$wwwoosh_fifo"
-        fi
-
-    done
+    if [ "$debug" ]; then
+        nc -k -l $port < "$wwwoosh_fifo" | tee /dev/stderr | handle_request "$app" | handle_response | tee /dev/stderr > "$wwwoosh_fifo"
+    else
+        nc -k -l $port < "$wwwoosh_fifo" | handle_request "$app" | handle_response > "$wwwoosh_fifo"
+    fi
 }
