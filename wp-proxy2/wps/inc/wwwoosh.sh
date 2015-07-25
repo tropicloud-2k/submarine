@@ -78,7 +78,7 @@ function wwwoosh_run () {
     debug=""
     [ $# -gt 2 ] && debug="$3"
 
-    echo "[wwwoosh] Listening on port $port"
+    echo "[`date +"%d-%b-%Y %T"`] WWWOOSH: Listening on port $port"
 
     while true; do
 

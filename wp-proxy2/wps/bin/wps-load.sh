@@ -8,7 +8,7 @@ wps_load() {
 	config="/etc/nginx/conf.d"
 	rm -rf ${config}/*
 
-	cd /tmp
+	cd /tmp && sleep 3
 	
 	echo "" > events.json
 	echo "" > domains.json
@@ -37,7 +37,7 @@ wps_load() {
 		ssl="`jq -r '. | select(.domain == "'$domain'") | .ssl' < domains.json | awk '!a[$0]++'`"
 
 		if [[  $ssl == 'true'  ]];
-		then port='443'
+		then port='443' && while [[  ! -f /wps/ssl/${domain}.crt  ]]; do sleep 1; done
 		else port='80'
 		fi
 	
