@@ -22,18 +22,18 @@ wps_http() {
 	    header "Content-Type" "text/html"
 	    cat "/wps/inc/index.html"
 	}
-	get "/sites" ps_handler
-	ps_handler () {
+	get "/sites" sites_handler
+	sites_handler () {
 	    header "Content-Type" "text/plain"
 	    cat "/tmp/domains.json"
 	}
-	get "/events" ps_handler
-	ps_handler () {
+	get "/events" events_handler
+	events_handler () {
 	    header "Content-Type" "text/plain"
 	    cat "/tmp/events.json" | jq '.'
 	}
-	get "/reload" redirect_handler
-	redirect_handler () {
+	get "/reload" reload_handler
+	reload_handler () {
 	    header "Content-Type" "text/plain"
 	    wps_reload
 	    echo "nginx reloaded"
