@@ -55,7 +55,7 @@ wps_wp_plugins() {
 		| sed "s/'response_header'.*/'response_header' => true,/g" \
 		| sed "s/'generate_time'.*/'generate_time' => true,/g" \
 		> $web/app/plugins/wp-ffpc/wp-ffpc.php
-		echo "define('WP_CACHE', true);" >> $www/config/environments/production.php
+		echo "define('WP_CACHE', true);" >> $www/config/application.php
 	fi
 
 	if [[  ! -z $REDIS_PORT  ]]; then
