@@ -26,7 +26,7 @@ wps_build() {
 		php-json \
 		php-mcrypt \
 		php-memcache \
-		php-mysql \
+		php-mysqli \
 		php-opcache \
 		php-openssl \
 		php-phar \
