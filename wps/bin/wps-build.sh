@@ -39,7 +39,7 @@ wps_build() {
 		php-xml \
 		php-zlib \
 		php-zip \
-		s6
+		s6@edge
 
 	rm -rf /var/cache/apk/*
 	rm -rf /var/lib/apt/lists/*
