@@ -9,8 +9,13 @@ wps_wp_version(){
 	if [[  ! -z $WP_VERSION  ]]; then
 		sed -i "s/$LOCK_VERSION/\"$WP_VERSION\"/g" $www/composer.json
 		su -l $user -c "cd $www && composer update"
+
+		# legacy wordpress support
+		PHP_MYSQL=`echo $WP_VERSION '>' '3.9' | bc -l`
+		if [[ $PHP_MYSQL -eq 0 ]]; then apk add php-mysql; fi
 	fi
 }
+
 
 # WP INSTALL
 # ---------------------------------------------------------------------------------
