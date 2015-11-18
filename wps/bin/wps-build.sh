@@ -9,7 +9,7 @@ wps_build() {
 	echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 	echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
-	apk add --update bash curl git nano sudo zip \
+	apk add --update bash bc curl git nano sudo zip \
 		libmemcached \
 		mariadb-client \
 		msmtp \
