@@ -9,6 +9,7 @@ wps_wp_version(){
 	if [[  ! -z $WP_VERSION  ]]; then
 		sed -i "s/$LOCK_VERSION/\"$WP_VERSION\"/g" $www/composer.json
 		su -l $user -c "cd $www && composer update"
+	fi
 }
 
 
